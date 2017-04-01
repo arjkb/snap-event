@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,17 +57,21 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG, "Created image file! " + photoFile.toString());
             } catch (IOException E) {
                 // Error occurred while creating the file
-                Log.v(TAG, "Error occurred while creating image file");
+                final String TEXT="Error while creating image file! Aborting!";
+                Log.v(TAG, TEXT);
+                Toast.makeText(getApplicationContext(), TEXT, Toast.LENGTH_SHORT).show();
+
             }
 
             // continue only if the file was succesfully created
             if(photoFile != null)   {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
+//                Uri photoURI = FileProvider.getUriForFile(this,
+//                        "com.example.android.fileprovider",
+//                        photoFile);
+                Uri photoURI = Uri.fromFile(photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Toast.makeText(getApplicationContext(), "Starting camera", Toast.LENGTH_SHORT).show();
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//                galleryAddPic();
             }
         }
     }
@@ -76,8 +81,21 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUEST_IMAGE_CAPTURE)    {
-            Log.v(TAG, " Inside onActivityResult() after taking picture!");
-            galleryAddPic();
+            if(resultCode == RESULT_OK) {
+                Log.v(TAG, " Inside onActivityResult() after taking picture!");
+                galleryAddPic();
+                Toast.makeText(getApplicationContext(),
+                        "Photo available in the gallery",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if (resultCode == RESULT_CANCELED) {
+                Log.v(TAG, " Inside onActivityResult() after taking picture!");
+                Log.v(TAG, " Inside onActivityResult() RESULT_CANCELED!");
+                Toast.makeText(getApplicationContext(),
+                        "Photo not taken",
+                        Toast.LENGTH_SHORT).show();
+
+            }
         }
     }
 
@@ -86,12 +104,9 @@ public class MainActivity extends AppCompatActivity {
         // Create an image file naem
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timestamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        Log.v(TAG, "storageDir: " + storageDir.toString());
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
