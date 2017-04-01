@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 photoFile = createImageFile();
+                Log.v(TAG, "Created image file! " + photoFile.toString());
             } catch (IOException E) {
                 // Error occurred while creating the file
-                Log.e(TAG, "Error occurred while creating the file");
+                Log.v(TAG, "Error occurred while creating image file");
             }
 
             // continue only if the file was succesfully created
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 ".jpg",
                 storageDir
         );
-        mCurrentPhotoPath = storageDir.getAbsolutePath();
+        mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
