@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                galleryAddPic();
             }
         }
     }
@@ -84,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
         return image;
     }
 
+    private void galleryAddPic()    {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
 
 
     @Override
