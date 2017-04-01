@@ -66,8 +66,18 @@ public class MainActivity extends AppCompatActivity {
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                galleryAddPic();
+//                galleryAddPic();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_IMAGE_CAPTURE)    {
+            Log.v(TAG, " Inside onActivityResult() after taking picture!");
+            galleryAddPic();
         }
     }
 
@@ -87,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void galleryAddPic()    {
+        Log.v(TAG, " Inside galleryAddPic()");
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
         mediaScanIntent.setData(contentUri);
