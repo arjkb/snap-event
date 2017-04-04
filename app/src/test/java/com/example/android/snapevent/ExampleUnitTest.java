@@ -1,4 +1,4 @@
-package com.example.android.simplecamera;
+package com.example.android.snapevent;
 
 import org.junit.Test;
 

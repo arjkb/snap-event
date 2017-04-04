@@ -1,4 +1,4 @@
-package com.example.android.simplecamera;
+package com.example.android.snapevent;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
