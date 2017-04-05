@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 galleryAddPic();
+                setPic();
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
                         Toast.LENGTH_SHORT).show();
