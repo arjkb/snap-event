@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ImageView mImageView1;
+    GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        gridView = (GridView) findViewById(R.id.gridView1);
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -92,13 +96,14 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 galleryAddPic();
-                setPic();
-
-                List<File> fileNames = getImageFileNames();
-
-                for(File fileName: fileNames)   {
-                    Log.v(TAG, "File Name: " + fileName.toString());
-                }
+                gridView.setAdapter(new GridViewAdapter(this, getImageFileNames()));
+//                setPic();
+//
+//                List<File> fileNames = getImageFileNames();
+//
+//                for(File fileName: fileNames)   {
+//                    Log.v(TAG, "File Name: " + fileName.toString());
+//                }
 
 
                 Toast.makeText(getApplicationContext(),
