@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     private File createImageFile() throws IOException   {
         // Create an image file naem
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timestamp + "_";
+        String imageFileName = "SNAPEVENT_" + timestamp + "_";
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         Log.v(TAG, "storageDir: " + storageDir.toString());
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
