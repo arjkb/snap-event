@@ -93,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 galleryAddPic();
                 setPic();
+
+                List<File> fileNames = getImageFileNames();
+
+                for(File fileName: fileNames)   {
+                    Log.v(TAG, "File Name: " + fileName.toString());
+                }
+
+
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
                         Toast.LENGTH_SHORT).show();
