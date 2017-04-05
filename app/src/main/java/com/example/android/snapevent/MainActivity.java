@@ -143,7 +143,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<File> getImageFileNames()  {
-        List<File> inFiles = new ArrayList<>(Arrays.asList(storageDir.listFiles()));
+        List<File> inFiles = new ArrayList<>();
+//        List<File> inFiles = new ArrayList<>(Arrays.asList(storageDir.listFiles()));
+
+        /*  Pics taken by app has prefix "SNAPEVENT"
+            I know this is shady.
+         */
+        for (File file: Arrays.asList(storageDir.listFiles()) )  {
+            if (file.isFile())   {
+                if (file.toString().startsWith("SNAPEVENT"))    {
+                    inFiles.add(file);
+                }
+            }
+        }
         return inFiles;
     }
 
