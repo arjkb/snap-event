@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Photo not taken",
                         Toast.LENGTH_SHORT).show();
-
             }
         }
     }
@@ -146,12 +145,17 @@ public class MainActivity extends AppCompatActivity {
         List<File> inFiles = new ArrayList<>();
 //        List<File> inFiles = new ArrayList<>(Arrays.asList(storageDir.listFiles()));
 
-        /*  Pics taken by app has prefix "SNAPEVENT"
+        Log.v(TAG, " Inside getImageFileNames()!");
+
+        /*  Pics taken by app has the word "SNAPEVENT" in filename.
             I know this is shady.
          */
         for (File file: Arrays.asList(storageDir.listFiles()) )  {
+            Log.v(TAG, " Inside GFN() Looping!!" + file.toString());
             if (file.isFile())   {
-                if (file.toString().startsWith("SNAPEVENT"))    {
+                Log.v(TAG, " Inside GFN() isFile()");
+                if (file.toString().contains("SNAPEVENT"))    {
+                    Log.v(TAG, " Inside GFN() Adding File!!");
                     inFiles.add(file);
                 }
             }
