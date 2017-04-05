@@ -1,6 +1,8 @@
 package com.example.android.snapevent;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -51,7 +53,32 @@ public class GridViewAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageBitmap();
+        imageView.setImageBitmap(getImageBitmap(imageView, position));
         return null;
+    }
+
+    private Bitmap getImageBitmap(ImageView imageView, int position)   {
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(fileNames.get(position).toString(), bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // decode the image file into a bitmap sized to fill the view
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable =true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(fileNames.get(position).toString(), bmOptions);
+//        imageView.setImageBitmap(bitmap);
+
+        return bitmap;
     }
 }
