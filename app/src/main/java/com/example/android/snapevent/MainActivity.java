@@ -96,15 +96,15 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 galleryAddPic();
-                gridView.setAdapter(new GridViewAdapter(this, getImageFileNames()));
 //                setPic();
 //
-//                List<File> fileNames = getImageFileNames();
+                List<File> fileNames = getImageFileNames();
 //
-//                for(File fileName: fileNames)   {
-//                    Log.v(TAG, "File Name: " + fileName.toString());
-//                }
+                for(File fileName: fileNames)   {
+                    Log.v(TAG, "File Name: " + fileName.toString());
+                }
 
+                gridView.setAdapter(new GridViewAdapter(this, fileNames));
 
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
