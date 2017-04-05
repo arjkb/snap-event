@@ -20,7 +20,10 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -124,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+    }
+
+    private List<File> getImageFileNames()  {
+        List<File> inFiles = new ArrayList<>(Arrays.asList(storageDir.listFiles()));
+        return inFiles;
     }
 
     private void setPic()   {
