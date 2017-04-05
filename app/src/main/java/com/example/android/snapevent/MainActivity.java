@@ -106,11 +106,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String mCurrentPhotoPath;
+    File storageDir;
     private File createImageFile() throws IOException   {
         // Create an image file naem
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timestamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         Log.v(TAG, "storageDir: " + storageDir.toString());
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
