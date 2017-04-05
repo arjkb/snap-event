@@ -1,6 +1,8 @@
 package com.example.android.snapevent;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,14 +14,22 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+//    ImageView mImageView1;
+    GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        gridView = (GridView) findViewById(R.id.gridView1);
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
+
+//        mImageView1 = (ImageView) findViewById(R.id.imageView1);
     }
 
     String TAG = "CAMERA";
@@ -82,6 +96,16 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 galleryAddPic();
+//                setPic();
+//
+                List<File> fileNames = getImageFileNames();
+//
+                for(File fileName: fileNames)   {
+                    Log.v(TAG, "File Name: " + fileName.toString());
+                }
+
+                gridView.setAdapter(new GridViewAdapter(this, fileNames));
+
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
                         Toast.LENGTH_SHORT).show();
@@ -92,17 +116,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Photo not taken",
                         Toast.LENGTH_SHORT).show();
-
             }
         }
     }
 
     String mCurrentPhotoPath;
+    File storageDir;
     private File createImageFile() throws IOException   {
         // Create an image file naem
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timestamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String imageFileName = "SNAPEVENT_" + timestamp + "_";
+        storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         Log.v(TAG, "storageDir: " + storageDir.toString());
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
@@ -116,6 +140,51 @@ public class MainActivity extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
+
+    private List<File> getImageFileNames()  {
+        List<File> inFiles = new ArrayList<>();
+//        List<File> inFiles = new ArrayList<>(Arrays.asList(storageDir.listFiles()));
+
+        Log.v(TAG, " Inside getImageFileNames()!");
+
+        /*  Pics taken by app has the word "SNAPEVENT" in filename.
+            I know this is shady.
+         */
+        for (File file: Arrays.asList(storageDir.listFiles()) )  {
+            Log.v(TAG, " Inside GFN() Looping!!" + file.toString());
+            if (file.isFile())   {
+                Log.v(TAG, " Inside GFN() isFile()");
+                if (file.toString().contains("SNAPEVENT"))    {
+                    Log.v(TAG, " Inside GFN() Adding File!!");
+                    inFiles.add(file);
+                }
+            }
+        }
+        return inFiles;
+    }
+
+//    private void setPic()   {
+//        int targetW = mImageView1.getWidth();
+//        int targetH = mImageView1.getHeight();
+//
+//        // get the dimensions of the bitmap
+//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+//        bmOptions.inJustDecodeBounds = true;
+//        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+//        int photoW = bmOptions.outWidth;
+//        int photoH = bmOptions.outHeight;
+//
+//        // determine how much to scale down the image
+//        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+//
+//        // decode the image file into a bitmap sized to fill the view
+//        bmOptions.inJustDecodeBounds = false;
+//        bmOptions.inSampleSize = scaleFactor;
+//        bmOptions.inPurgeable =true;
+//
+//        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+//        mImageView1.setImageBitmap(bitmap);
+//    }
 
 
     @Override
