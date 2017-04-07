@@ -39,14 +39,18 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Button1"/>
+                    android:text="Button1"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:textColor="@color/colorAccent"/>
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Button2"/>
+                    android:text="Button2"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:textColor="@color/colorAccent"/>
 
             </LinearLayout>
 
