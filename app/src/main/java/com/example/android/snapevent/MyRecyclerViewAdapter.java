@@ -16,6 +16,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     String[] sampleDataSet;
 
+    final String LOG_TAG = "MyRecyclerViewAdapter";
+
     public MyRecyclerViewAdapter(String[] dummyText) {
         sampleDataSet = dummyText;
     }
