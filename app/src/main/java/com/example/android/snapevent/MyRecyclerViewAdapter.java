@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    String[] sampleDataSet;
+//    String[] sampleDataSet;
     List<File> fileNames;
 
     final String LOG_TAG = "MyRecyclerViewAdapter";
@@ -31,10 +31,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 //        sampleDataSet = dummyText;
 //    }
 
-    public MyRecyclerViewAdapter(List<File> imageFileNames, String[] dummyText) {
+    public MyRecyclerViewAdapter(List<File> imageFileNames) {
         fileNames = imageFileNames;
-        sampleDataSet = dummyText;
     }
+
+//    public MyRecyclerViewAdapter(List<File> imageFileNames, String[] dummyText) {
+//        fileNames = imageFileNames;
+//        sampleDataSet = dummyText;
+//    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
@@ -62,8 +66,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        String thisItemText = sampleDataSet[position];
-        holder.mTextView.setText(thisItemText);
+        String thisItemFileName = fileNames.get(position).toString();
+//        holder.mTextView.setText(thisItemText);
+        holder.mTextView.setText(thisItemFileName);
         holder.mImageView.setImageBitmap(getImageBitmap(holder.mImageView, position));
 
         holder.mButton1.setOnClickListener(new View.OnClickListener() {
