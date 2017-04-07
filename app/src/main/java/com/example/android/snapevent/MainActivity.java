@@ -9,6 +9,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 //    ImageView mImageView1;
     GridView gridView;
 
+    public RecyclerView myRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +42,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        gridView = (GridView) findViewById(R.id.gridView1);
+//        gridView = (GridView) findViewById(R.id.gridView1);
+
+        storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getDummyText(100)));
+        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 //        mImageView1 = (ImageView) findViewById(R.id.imageView1);
+    }
+
+    private String[] getDummyText(int size) {
+        List<String> dummyString = new ArrayList<String>();
+        for (int i = 0; i < size; i++) {
+             dummyString.add(" Dummy string " + i);
+        }
+        return (String []) dummyString.toArray(new String[0]);
     }
 
     String TAG = "CAMERA";
@@ -104,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.v(TAG, "File Name: " + fileName.toString());
                 }
 
-                gridView.setAdapter(new GridViewAdapter(this, fileNames));
+//                gridView.setAdapter(new GridViewAdapter(this, fileNames));
 
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
