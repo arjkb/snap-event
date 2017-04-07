@@ -23,12 +23,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     final String LOG_TAG = "MyRecyclerViewAdapter";
 
-    public MyRecyclerViewAdapter(String[] dummyText) {
-        sampleDataSet = dummyText;
-    }
+//    public MyRecyclerViewAdapter(String[] dummyText) {
+//        sampleDataSet = dummyText;
+//    }
 
-    public MyRecyclerViewAdapter(List<File> imageFileNames) {
+    public MyRecyclerViewAdapter(List<File> imageFileNames, String[] dummyText) {
         fileNames = imageFileNames;
+        sampleDataSet = dummyText;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
