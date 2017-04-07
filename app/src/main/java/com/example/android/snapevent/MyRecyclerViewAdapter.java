@@ -83,7 +83,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public int getItemCount() {
-        return sampleDataSet.length;
+        return fileNames.size();
     }
 
     private Bitmap getImageBitmap(ImageView imageView, int position)   {
