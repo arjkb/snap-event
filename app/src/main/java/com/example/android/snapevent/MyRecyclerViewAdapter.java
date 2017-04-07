@@ -25,6 +25,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         public ViewHolder(View itemView) {
             super(itemView);
+
+            mTextView = (TextView) itemView.findViewById(R.id.dummy_text_view);
+            mButton1 = (Button) itemView.findViewById(R.id.button1);
+            mButton2 = (Button) itemView.findViewById(R.id.button2);
+
         }
     }
 
