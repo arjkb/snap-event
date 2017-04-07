@@ -41,10 +41,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 //    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
-        public ImageView mImageView;
-        public Button mButton1;
-        public Button mButton2;
+        private TextView mTextView;
+        private ImageView mImageView;
+        private Button mButton1;
+        private Button mButton2;
 
         public ViewHolder(View itemView) {
             super(itemView);
