@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        gridView = (GridView) findViewById(R.id.gridView1);
+//        gridView = (GridView) findViewById(R.id.gridView1);
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.v(TAG, "File Name: " + fileName.toString());
                 }
 
-                gridView.setAdapter(new GridViewAdapter(this, fileNames));
+//                gridView.setAdapter(new GridViewAdapter(this, fileNames));
 
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
