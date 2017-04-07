@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
+    String[] sampleDataSet;
+
+    public MyRecyclerViewAdapter(String[] dummyText) {
+        sampleDataSet = dummyText;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
