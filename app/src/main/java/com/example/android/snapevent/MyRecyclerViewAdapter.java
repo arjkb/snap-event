@@ -1,6 +1,8 @@
 package com.example.android.snapevent;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,5 +83,32 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public int getItemCount() {
         return sampleDataSet.length;
+    }
+
+    private Bitmap getImageBitmap(ImageView imageView, int position)   {
+        imageView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int targetW = imageView.getMeasuredWidth();
+        int targetH = imageView.getMeasuredHeight();
+
+        // get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(fileNames.get(position).toString(), bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        Log.v(LOG_TAG, " >> " + targetH + " " + targetW + " " + photoH + " " + photoW);
+
+        // determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/100, photoH/100);
+
+        // decode the image file into a bitmap sized to fill the view
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable =true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(fileNames.get(position).toString(), bmOptions);
+
+        return bitmap;
     }
 }
