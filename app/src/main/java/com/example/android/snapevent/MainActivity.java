@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(new MyRecyclerViewAdapter());
+        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getDummyText(100)));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 //        mImageView1 = (ImageView) findViewById(R.id.imageView1);
+    }
+
+    private String[] getDummyText(int size) {
+        List<String> dummyString = new ArrayList<String>();
+        for (int i = 0; i < size; i++) {
+             dummyString.add(" Dummy string " + i);
+        }
+        return (String []) dummyString.toArray(new String[0]);
     }
 
     String TAG = "CAMERA";
