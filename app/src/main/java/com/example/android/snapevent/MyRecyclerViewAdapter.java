@@ -106,14 +106,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         Matrix matrix = new Matrix();
         matrix.postScale(0.5f, 0.5f);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(fileNames.get(position).toString(), bmOptions);
-        Log.v(LOG_TAG, " Bitmap: " + position);
-        final int x = 0;
-        final int y = bitmap.getHeight()/3;
-        final int height = bitmap.getHeight()/3;
-        final int width = bitmap.getWidth();
+        Bitmap croppedBitmap = null;
 
-        Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, x, y, width, height, matrix, true);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeFile(fileNames.get(position).toString(), bmOptions);
+            Log.v(LOG_TAG, " Bitmap: " + position);
+            final int x = 0;
+            final int y = bitmap.getHeight()/3;
+            final int height = bitmap.getHeight()/3;
+            final int width = bitmap.getWidth();
+
+            croppedBitmap = Bitmap.createBitmap(bitmap, x, y, width, height, matrix, true);
+        } catch (NullPointerException E)    {
+            Log.e(LOG_TAG, "getImageBitmap(): NULL POINTER EXCEPTION " + E);
+        }
 
 //        return bitmap;
         return croppedBitmap;
