@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -34,16 +35,17 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
+        public ImageView mImageView;
         public Button mButton1;
         public Button mButton2;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            mImageView = (ImageView) itemView.findViewById(R.id.image_view);
             mTextView = (TextView) itemView.findViewById(R.id.dummy_text_view);
             mButton1 = (Button) itemView.findViewById(R.id.button1);
             mButton2 = (Button) itemView.findViewById(R.id.button2);
-
         }
     }
 
