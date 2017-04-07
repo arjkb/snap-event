@@ -63,6 +63,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(ViewHolder holder, final int position) {
         String thisItemText = sampleDataSet[position];
         holder.mTextView.setText(thisItemText);
+        holder.mImageView.setImageBitmap(getImageBitmap(holder.mImageView, position));
 
         holder.mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
