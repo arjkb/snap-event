@@ -44,10 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
 //        gridView = (GridView) findViewById(R.id.gridView1);
 
+        storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getDummyText(100)));
-        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
+//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getDummyText(100)));
+        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames(), getDummyText(100)));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
