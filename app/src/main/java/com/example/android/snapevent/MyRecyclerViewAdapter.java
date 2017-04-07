@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.List;
+
 /**
  * Created by akbfedora on 4/6/17.
  */
@@ -16,11 +19,16 @@ import android.widget.TextView;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
     String[] sampleDataSet;
+    List<File> fileNames;
 
     final String LOG_TAG = "MyRecyclerViewAdapter";
 
     public MyRecyclerViewAdapter(String[] dummyText) {
         sampleDataSet = dummyText;
+    }
+
+    public MyRecyclerViewAdapter(List<File> imageFileNames) {
+        fileNames = imageFileNames;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
