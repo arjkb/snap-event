@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -70,14 +71,18 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v(LOG_TAG, " Clicking button1 at position " + position);
+                String buttonClickMessage = "Clicked button 1 at position " + position;
+                Log.v(LOG_TAG, buttonClickMessage);
+                Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v(LOG_TAG, " Clicking button2 at position " + position);
+                String buttonClickMessage = "Clicked button 2 at position " + position;
+                Log.v(LOG_TAG, buttonClickMessage);
+                Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
