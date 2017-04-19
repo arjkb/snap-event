@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     List<File> fileNames;
 
     final String LOG_TAG = "MyRecyclerViewAdapter";
+    Context context;
 
 //    public MyRecyclerViewAdapter(String[] dummyText) {
 //        sampleDataSet = dummyText;
@@ -60,7 +63,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View thisItemView = inflater.inflate(R.layout.my_cardlist_view, parent, false);
-
+        context = parent.getContext();
         return new ViewHolder(thisItemView);
     }
 
@@ -69,8 +72,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         String thisItemFileName = fileNames.get(position).toString();
 //        holder.mTextView.setText(thisItemText);
         holder.mTextView.setText(thisItemFileName);
-        holder.mImageView.setImageBitmap(getImageBitmap(holder.mImageView, position));
+//        holder.mImageView.setImageBitmap(getImageBitmap(holder.mImageView, position));
 
+        Glide.with(context)
+                .load(fileNames.get(position))
+                .centerCrop()
+                .into(holder.mImageView);
         holder.mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
