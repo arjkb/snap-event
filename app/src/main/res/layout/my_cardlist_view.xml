@@ -21,7 +21,7 @@
             <ImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:src="@drawable/ic_photo_camera_black_24dp"
                 card_view:srcCompat="@mipmap/ic_launcher" />
 
