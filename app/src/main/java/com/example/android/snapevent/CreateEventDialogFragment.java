@@ -7,8 +7,15 @@ import android.support.v4.app.DialogFragment;
  */
 
 public class CreateEventDialogFragment extends DialogFragment {
+    String dialogMessage = null;
+
     public interface CreateEventDialogListener  {
         public void onDialogPositiveClick(DialogFragment dialog);
         public void onDialogNegativeClick(DialogFragment dialog);
+    }
+    CreateEventDialogListener mListener;
+
+    public CreateEventDialogFragment()  {
+        this.dialogMessage = "Hello, world!";
     }
 }
