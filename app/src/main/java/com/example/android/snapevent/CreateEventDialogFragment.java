@@ -24,8 +24,8 @@ public class CreateEventDialogFragment extends DialogFragment {
     }
     CreateEventDialogListener mListener;
 
-    public CreateEventDialogFragment()  {
-        this.dialogMessage = "Hello, world!";
+    public CreateEventDialogFragment(String message)  {
+        this.dialogMessage = message;
     }
 
     @Override
