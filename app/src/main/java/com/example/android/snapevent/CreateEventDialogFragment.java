@@ -1,5 +1,7 @@
 package com.example.android.snapevent;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.DialogFragment;
 
 /**
@@ -17,5 +19,17 @@ public class CreateEventDialogFragment extends DialogFragment {
 
     public CreateEventDialogFragment()  {
         this.dialogMessage = "Hello, world!";
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mListener = (CreateEventDialogListener) activity;
+        } catch (ClassCastException e)  {
+            throw new ClassCastException(activity.toString()
+                            + " must implement CreateEventDialogListener");
+        }
     }
 }
