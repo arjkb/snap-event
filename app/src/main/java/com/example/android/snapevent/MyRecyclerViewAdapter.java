@@ -1,5 +1,6 @@
 package com.example.android.snapevent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +35,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         fileNames = imageFileNames;
     }
 
+    public interface RecyclerViewButtonClickListener {
+        public void onButton1Click(int position);
+        public void onButton2Click(int position);
+    }
+
+    RecyclerViewButtonClickListener recyclerViewButtonClickListener;
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextView;
         private ImageView mImageView;
@@ -55,6 +63,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View thisItemView = inflater.inflate(R.layout.my_cardlist_view, parent, false);
         context = parent.getContext();
+        try {
+            recyclerViewButtonClickListener = (RecyclerViewButtonClickListener) context;
+        } catch (Exception E)   {
+            Log.w(LOG_TAG, " RVBCL ERROR " + E.toString());
+        }
         return new ViewHolder(thisItemView);
     }
 
@@ -74,6 +87,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 1 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
+                recyclerViewButtonClickListener.onButton1Click(position);
             }
         });
 
@@ -83,6 +97,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
+                recyclerViewButtonClickListener.onButton2Click(position);
             }
         });
     }
