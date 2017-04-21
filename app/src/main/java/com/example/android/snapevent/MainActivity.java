@@ -1,6 +1,7 @@
 package com.example.android.snapevent;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.File;
 import java.io.IOException;
@@ -180,6 +183,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return inFiles;
+    }
+
+    public String detectText()  {
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+        if (!textRecognizer.isOperational())    {
+            Log.v(TAG, " Detector dependencies are not yet available!");
+
+            IntentFilter lowStorageFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
+            boolean hasLowStorage = registerReceiver(null, lowStorageFilter) != null;
+            if (hasLowStorage)  {
+                Toast.makeText(this, "LOW STORAGE!", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Low storage!");
+            }
+        }
+        return null;
     }
 
 //    private void setPic()   {
