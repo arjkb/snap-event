@@ -28,7 +28,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener {
 
 //    ImageView mImageView1;
     GridView gridView;
@@ -227,4 +228,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

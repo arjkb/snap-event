@@ -35,8 +35,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     public interface RecyclerViewButtonClickListener {
-        public void onButton1Click(RecyclerView.ViewHolder vh);
-        public void onButton2Click(RecyclerView.ViewHolder vh);
+        public void onButton1Click(int position);
+        public void onButton2Click(int position);
     }
 
     RecyclerViewButtonClickListener recyclerViewButtonClickListener;
@@ -66,7 +66,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         String thisItemFileName = fileNames.get(position).toString();
         holder.mTextView.setText(thisItemFileName);
 
@@ -81,7 +81,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 1 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
-                recyclerViewButtonClickListener.onButton1Click(holder);
+                recyclerViewButtonClickListener.onButton1Click(position);
             }
         });
 
@@ -91,7 +91,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
-                recyclerViewButtonClickListener.onButton2Click(holder);
+                recyclerViewButtonClickListener.onButton2Click(position);
             }
         });
     }
