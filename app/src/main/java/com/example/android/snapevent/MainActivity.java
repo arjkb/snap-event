@@ -241,6 +241,12 @@ public class MainActivity extends AppCompatActivity
     public void onButton2Click(int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
+        showCreateEventDialog();
+    }
+
+    public void showCreateEventDialog() {
+        DialogFragment newFragment = new CreateEventDialogFragment();
+        newFragment.show(getSupportFragmentManager(), "CEDF");
     }
 
     @Override
