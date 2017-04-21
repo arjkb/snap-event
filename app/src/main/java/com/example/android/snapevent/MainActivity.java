@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +30,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-                implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener {
+                implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener,
+                            CreateEventDialogFragment.CreateEventDialogListener{
 
 //    ImageView mImageView1;
     GridView gridView;
@@ -239,5 +241,17 @@ public class MainActivity extends AppCompatActivity
     public void onButton2Click(int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // method in CreateEventDialogListener
+        Log.v(TAG, " MA: Pressed positive dialog button");
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // method in CreateEventDialogListener
+        Log.v(TAG, " MA: Pressed negative dialog button");
     }
 }
