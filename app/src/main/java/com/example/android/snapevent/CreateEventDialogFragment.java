@@ -52,12 +52,14 @@ public class CreateEventDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.v(TAG, "Positive dialog click!");
+                        mListener.onDialogPositiveClick(CreateEventDialogFragment.this);
                     }
                 })
                 .setNegativeButton("Negative Button", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.v(TAG, "Negative dialog click!");
+                        mListener.onDialogNegativeClick(CreateEventDialogFragment.this);
                     }
                 });
         return builder.create();
