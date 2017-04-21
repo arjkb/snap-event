@@ -7,4 +7,8 @@ import android.support.v4.app.DialogFragment;
  */
 
 public class CreateEventDialogFragment extends DialogFragment {
+    public interface CreateEventDialogListener  {
+        public void onDialogPositiveClick(DialogFragment dialog);
+        public void onDialogNegativeClick(DialogFragment dialog);
+    }
 }
