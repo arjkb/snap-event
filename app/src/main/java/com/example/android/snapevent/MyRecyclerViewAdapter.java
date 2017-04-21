@@ -36,8 +36,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     public interface RecyclerViewButtonClickListener {
-        public void onButton1Click(RecyclerView.ViewHolder vh, int position);
-        public void onButton2Click(RecyclerView.ViewHolder vh, int position);
+        public void onButton1Click(int imageViewID, int position);
+        public void onButton2Click(int imageViewID, int position);
     }
 
     RecyclerViewButtonClickListener recyclerViewButtonClickListener;
@@ -55,6 +55,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             mTextView = (TextView) itemView.findViewById(R.id.dummy_text_view);
             mButton1 = (Button) itemView.findViewById(R.id.button1);
             mButton2 = (Button) itemView.findViewById(R.id.button2);
+
         }
     }
 
@@ -87,7 +88,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 1 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
-                recyclerViewButtonClickListener.onButton1Click(holder, position);
+                recyclerViewButtonClickListener.onButton1Click(holder.mImageView.getId(), position);
             }
         });
 
@@ -97,7 +98,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
-                recyclerViewButtonClickListener.onButton2Click(holder, position);
+                recyclerViewButtonClickListener.onButton2Click(holder.mImageView.getId(), position);
             }
         });
     }
