@@ -81,7 +81,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 1 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
-                recyclerViewButtonClickListener.onButton1Click(position);
+//                recyclerViewButtonClickListener.onButton1Click(position);
             }
         });
 
@@ -91,7 +91,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
                 Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
-                recyclerViewButtonClickListener.onButton2Click(position);
+//                recyclerViewButtonClickListener.onButton2Click(position);
             }
         });
     }

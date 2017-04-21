@@ -28,8 +28,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener {
+public class MainActivity extends AppCompatActivity {
 
 //    ImageView mImageView1;
     GridView gridView;
