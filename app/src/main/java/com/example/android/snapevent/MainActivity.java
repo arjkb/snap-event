@@ -251,13 +251,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onButton1Click(int position) {
+    public void onButton1Click(RecyclerView.ViewHolder vh, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 1 at position " + position);
     }
 
     @Override
-    public void onButton2Click(int position) {
+    public void onButton2Click(RecyclerView.ViewHolder vh, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
         showCreateEventDialog();
