@@ -185,51 +185,6 @@ public class MainActivity extends AppCompatActivity
         return inFiles;
     }
 
-    public String detectText(int imageViewID)  {
-        Log.v(TAG, " Entering detectText " + imageViewID);
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-
-        if (!textRecognizer.isOperational())    {
-            Log.v(TAG, " Detector dependencies are not yet available!");
-
-            IntentFilter lowStorageFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
-            boolean hasLowStorage = registerReceiver(null, lowStorageFilter) != null;
-            if (hasLowStorage)  {
-                Toast.makeText(this, "LOW STORAGE!", Toast.LENGTH_SHORT).show();
-                Log.w(TAG, "Low storage!");
-            }
-        }
-
-        ImageView mImageView = (ImageView) findViewById(imageViewID);
-
-        Bitmap bitmap = ((GlideBitmapDrawable)mImageView.getDrawable().getCurrent()).getBitmap();
-        Bitmap convertedBitmap = convert(bitmap, Bitmap.Config.ARGB_8888);
-        Frame frame = new Frame.Builder().setBitmap(convertedBitmap).build();
-
-        SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
-        String detectedText = "";
-
-        Log.v(TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
-        for(int i = 0; i < textBlockSparseArray.size(); i++)    {
-            TextBlock textBlock = textBlockSparseArray.valueAt(i);
-            detectedText += textBlock.getValue();
-            Log.v(TAG, " Text! " + textBlock.getValue());
-        }
-
-        Log.v(TAG, " Exiting detectText " + detectedText);
-
-        return detectedText;
-    }
-
-    private Bitmap convert(Bitmap bitmap, Bitmap.Config config) {
-        Bitmap convertedBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), config);
-        Canvas canvas = new Canvas(convertedBitmap);
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-        return convertedBitmap;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -262,7 +217,7 @@ public class MainActivity extends AppCompatActivity
     public void onButton2Click(int imageViewID, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
-        showCreateEventDialog(detectText(imageViewID));
+//        showCreateEventDialog(detectText(imageViewID));
     }
 
     public void showCreateEventDialog(String dialogMessage) {
