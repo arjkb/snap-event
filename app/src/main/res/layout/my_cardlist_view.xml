@@ -48,7 +48,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Button2"
+                    android:text="@string/cardview_button_right"
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:textColor="@color/colorAccent"/>
 

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">SnapEvent</string>
     <string name="action_settings">Settings</string>
+    <string name="cardview_button_right">Detect Text</string>
+    <string name="dialog_button_negative">Cancel</string>
+    <string name="dialog_button_positive">Create Event</string>
+    <string name="dialog_title">Create Event?</string>
 </resources>
