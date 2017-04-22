@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity
                 );
                 detectTextSnackbar.show();
 
-                Toast.makeText(getApplicationContext(),
-                        "Photo available in the gallery",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        "Photo available in the gallery",
+//                        Toast.LENGTH_SHORT).show();
             }
             else if (resultCode == RESULT_CANCELED) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
