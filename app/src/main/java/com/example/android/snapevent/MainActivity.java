@@ -44,10 +44,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
                 implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener,
                             CreateEventDialogFragment.CreateEventDialogListener{
-
-//    ImageView mImageView1;
-    GridView gridView;
-
+    
     public RecyclerView myRecyclerView;
 
     @Override
@@ -57,13 +54,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        gridView = (GridView) findViewById(R.id.gridView1);
-
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getDummyText(100)));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,8 +68,6 @@ public class MainActivity extends AppCompatActivity
                 dispatchTakePictureIntent();
             }
         });
-
-//        mImageView1 = (ImageView) findViewById(R.id.imageView1);
     }
 
     @Override
@@ -116,9 +108,6 @@ public class MainActivity extends AppCompatActivity
 
             // continue only if the file was succesfully created
             if(photoFile != null)   {
-//                Uri photoURI = FileProvider.getUriForFile(this,
-//                        "com.example.android.fileprovider",
-//                        photoFile);
                 Uri photoURI = Uri.fromFile(photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 Toast.makeText(getApplicationContext(), "Starting camera", Toast.LENGTH_SHORT).show();
@@ -135,15 +124,10 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 galleryAddPic();
-//                setPic();
-//
                 List<File> fileNames = getImageFileNames();
-//
                 for(File fileName: fileNames)   {
                     Log.v(TAG, "File Name: " + fileName.toString());
                 }
-
-//                gridView.setAdapter(new GridViewAdapter(this, fileNames));
 
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
@@ -182,7 +166,6 @@ public class MainActivity extends AppCompatActivity
 
     private List<File> getImageFileNames()  {
         List<File> inFiles = new ArrayList<>();
-//        List<File> inFiles = new ArrayList<>(Arrays.asList(storageDir.listFiles()));
 
         Log.v(TAG, " Inside getImageFileNames()!");
 
@@ -220,7 +203,6 @@ public class MainActivity extends AppCompatActivity
         ImageView mImageView = (ImageView) findViewById(imageViewID);
 
         Bitmap bitmap = ((GlideBitmapDrawable)mImageView.getDrawable().getCurrent()).getBitmap();
-//        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
         Bitmap convertedBitmap = convert(bitmap, Bitmap.Config.ARGB_8888);
         Frame frame = new Frame.Builder().setBitmap(convertedBitmap).build();
 
@@ -247,30 +229,6 @@ public class MainActivity extends AppCompatActivity
         canvas.drawBitmap(bitmap, 0, 0, paint);
         return convertedBitmap;
     }
-
-//    private void setPic()   {
-//        int targetW = mImageView1.getWidth();
-//        int targetH = mImageView1.getHeight();
-//
-//        // get the dimensions of the bitmap
-//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-//        bmOptions.inJustDecodeBounds = true;
-//        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//        int photoW = bmOptions.outWidth;
-//        int photoH = bmOptions.outHeight;
-//
-//        // determine how much to scale down the image
-//        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-//
-//        // decode the image file into a bitmap sized to fill the view
-//        bmOptions.inJustDecodeBounds = false;
-//        bmOptions.inSampleSize = scaleFactor;
-//        bmOptions.inPurgeable =true;
-//
-//        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//        mImageView1.setImageBitmap(bitmap);
-//    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -304,7 +262,6 @@ public class MainActivity extends AppCompatActivity
     public void onButton2Click(int imageViewID, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
-
         showCreateEventDialog(detectText(imageViewID));
     }
 
