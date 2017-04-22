@@ -229,6 +229,9 @@ public class MainActivity extends AppCompatActivity
     public void onDialogPositiveClick(DialogFragment dialog) {
         // method in CreateEventDialogListener
         Log.v(TAG, " MA: Pressed positive dialog button");
+        Toast.makeText(getApplicationContext(),
+                        "Creating calendar event. No, not really.",
+                        Toast.LENGTH_SHORT).show();
     }
 
     @Override
