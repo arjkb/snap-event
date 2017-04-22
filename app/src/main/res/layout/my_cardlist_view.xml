@@ -40,6 +40,8 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Button1"
+                    android:visibility="gone"
+                    android:enabled="false"
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:textColor="@color/colorAccent"/>
 
