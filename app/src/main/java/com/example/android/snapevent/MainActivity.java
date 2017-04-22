@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -128,6 +129,13 @@ public class MainActivity extends AppCompatActivity
                 for(File fileName: fileNames)   {
                     Log.v(TAG, "File Name: " + fileName.toString());
                 }
+
+                Snackbar detectTextSnackbar = Snackbar.make(
+                                                        findViewById(R.id.my_coordinator_layout),
+                                                        "Photo saved to gallery!",
+                                                        Snackbar.LENGTH_LONG
+                );
+                detectTextSnackbar.show();
 
                 Toast.makeText(getApplicationContext(),
                         "Photo available in the gallery",
