@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         String imageFileName = "SNAPEVENT_" + timestamp + "_";
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         Log.v(TAG, "storageDir: " + storageDir.toString());
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        File image = File.createTempFile(imageFileName, ".png", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
@@ -195,6 +198,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public String detectText(int imageViewID)  {
+        Log.v(TAG, " Entering detectText");
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
         if (!textRecognizer.isOperational())    {
@@ -211,17 +215,32 @@ public class MainActivity extends AppCompatActivity
         ImageView mImageView = (ImageView) findViewById(imageViewID);
 
         Bitmap bitmap = ((GlideBitmapDrawable)mImageView.getDrawable().getCurrent()).getBitmap();
-        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+//        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+        Bitmap convertedBitmap = convert(bitmap, Bitmap.Config.ARGB_8888);
+        Frame frame = new Frame.Builder().setBitmap(convertedBitmap).build();
 
         SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
         String detectedText = "";
+
+        Log.v(TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
         for(int i = 0; i < textBlockSparseArray.size(); i++)    {
             TextBlock textBlock = textBlockSparseArray.valueAt(i);
             detectedText += textBlock.getValue();
             Log.v(TAG, " Text! " + textBlock.getValue());
         }
 
+        Log.v(TAG, " Exiting detectText " + detectedText);
+
         return detectedText;
+    }
+
+    private Bitmap convert(Bitmap bitmap, Bitmap.Config config) {
+        Bitmap convertedBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), config);
+        Canvas canvas = new Canvas(convertedBitmap);
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return convertedBitmap;
     }
 
 //    private void setPic()   {
@@ -281,7 +300,7 @@ public class MainActivity extends AppCompatActivity
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
 
-        showCreateEventDialog("Foo");
+        showCreateEventDialog(detectText(imageViewID));
     }
 
     public void showCreateEventDialog(String dialogMessage) {
