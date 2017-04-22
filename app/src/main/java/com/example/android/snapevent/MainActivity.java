@@ -208,16 +208,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onButton1Click(int imageViewID, int position) {
+    public void onButton1Click(int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 1 at position " + position);
     }
 
     @Override
-    public void onButton2Click(int imageViewID, int position) {
+    public void onButton2Click(String detectedText, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
-//        showCreateEventDialog(detectText(imageViewID));
+        showCreateEventDialog(detectedText);
     }
 
     public void showCreateEventDialog(String dialogMessage) {
