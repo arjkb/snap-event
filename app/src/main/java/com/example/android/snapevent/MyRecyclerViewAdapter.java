@@ -50,12 +50,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             mImageView = (ImageView) itemView.findViewById(R.id.image_view);
             mTextView = (TextView) itemView.findViewById(R.id.dummy_text_view);
             mButton1 = (Button) itemView.findViewById(R.id.button1);
             mButton2 = (Button) itemView.findViewById(R.id.button2);
-
         }
     }
 
@@ -87,7 +85,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             public void onClick(View v) {
                 String buttonClickMessage = "Clicked button 1 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
-                Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
                 recyclerViewButtonClickListener.onButton1Click(holder.mImageView.getId(), position);
             }
         });
@@ -97,7 +94,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             public void onClick(View v) {
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
-                Toast.makeText(context, buttonClickMessage, Toast.LENGTH_SHORT).show();
                 recyclerViewButtonClickListener.onButton2Click(holder.mImageView.getId(), position);
             }
         });
