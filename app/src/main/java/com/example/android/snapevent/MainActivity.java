@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getDummyText(100)));
-        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +76,12 @@ public class MainActivity extends AppCompatActivity
         });
 
 //        mImageView1 = (ImageView) findViewById(R.id.imageView1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
     }
 
     private String[] getDummyText(int size) {
