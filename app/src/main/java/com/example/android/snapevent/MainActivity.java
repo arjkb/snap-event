@@ -1,8 +1,12 @@
 package com.example.android.snapevent;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,12 +18,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -150,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         String imageFileName = "SNAPEVENT_" + timestamp + "_";
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         Log.v(TAG, "storageDir: " + storageDir.toString());
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        File image = File.createTempFile(imageFileName, ".png", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
@@ -183,6 +195,52 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return inFiles;
+    }
+
+    public String detectText(int imageViewID)  {
+        Log.v(TAG, " Entering detectText");
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+        if (!textRecognizer.isOperational())    {
+            Log.v(TAG, " Detector dependencies are not yet available!");
+
+            IntentFilter lowStorageFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
+            boolean hasLowStorage = registerReceiver(null, lowStorageFilter) != null;
+            if (hasLowStorage)  {
+                Toast.makeText(this, "LOW STORAGE!", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Low storage!");
+            }
+        }
+
+        ImageView mImageView = (ImageView) findViewById(imageViewID);
+
+        Bitmap bitmap = ((GlideBitmapDrawable)mImageView.getDrawable().getCurrent()).getBitmap();
+//        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+        Bitmap convertedBitmap = convert(bitmap, Bitmap.Config.ARGB_8888);
+        Frame frame = new Frame.Builder().setBitmap(convertedBitmap).build();
+
+        SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
+        String detectedText = "";
+
+        Log.v(TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
+        for(int i = 0; i < textBlockSparseArray.size(); i++)    {
+            TextBlock textBlock = textBlockSparseArray.valueAt(i);
+            detectedText += textBlock.getValue();
+            Log.v(TAG, " Text! " + textBlock.getValue());
+        }
+
+        Log.v(TAG, " Exiting detectText " + detectedText);
+
+        return detectedText;
+    }
+
+    private Bitmap convert(Bitmap bitmap, Bitmap.Config config) {
+        Bitmap convertedBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), config);
+        Canvas canvas = new Canvas(convertedBitmap);
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return convertedBitmap;
     }
 
 //    private void setPic()   {
@@ -232,20 +290,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onButton1Click(int position) {
+    public void onButton1Click(int imageViewID, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 1 at position " + position);
     }
 
     @Override
-    public void onButton2Click(int position) {
+    public void onButton2Click(int imageViewID, int position) {
         // method in RecyclerViewButtonClickListener
         Log.v(TAG, " MA: Pressed button 2 at position " + position);
-        showCreateEventDialog();
+
+        showCreateEventDialog(detectText(imageViewID));
     }
 
-    public void showCreateEventDialog() {
-        DialogFragment newFragment = new CreateEventDialogFragment();
+    public void showCreateEventDialog(String dialogMessage) {
+        DialogFragment newFragment = new CreateEventDialogFragment(dialogMessage);
         newFragment.show(getSupportFragmentManager(), "CEDF");
     }
 
