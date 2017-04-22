@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public String detectText(int imageViewID)  {
-        Log.v(TAG, " Entering detectText");
+        Log.v(TAG, " Entering detectText " + imageViewID);
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
         if (!textRecognizer.isOperational())    {
