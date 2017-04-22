@@ -26,10 +26,10 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    List<File> fileNames;
+    private List<File> fileNames;
 
     final String LOG_TAG = "MyRecyclerViewAdapter";
-    Context context;
+    private Context context;
 
     public MyRecyclerViewAdapter(List<File> imageFileNames) {
         fileNames = imageFileNames;
@@ -40,7 +40,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         public void onButton2Click(int imageViewID, int position);
     }
 
-    RecyclerViewButtonClickListener recyclerViewButtonClickListener;
+    private RecyclerViewButtonClickListener recyclerViewButtonClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextView;
