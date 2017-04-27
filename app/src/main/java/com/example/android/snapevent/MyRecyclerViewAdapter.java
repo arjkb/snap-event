@@ -47,7 +47,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public interface RecyclerViewButtonClickListener {
         public void onButton1Click(int position);
-        public void onButton2Click(String detectedText, int position);
+        public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position);
     }
 
     private RecyclerViewButtonClickListener recyclerViewButtonClickListener;
@@ -105,10 +105,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
 
-                String detectedText = detectText(holder.mImageView);
-                Log.v(LOG_TAG, " Yippy! DT: " + detectedText);
+//                String detectedText = detectText(holder.mImageView);
+//                Log.v(LOG_TAG, " Yippy! DT: " + detectedText);
 
-                recyclerViewButtonClickListener.onButton2Click(detectedText, position);
+//                recyclerViewButtonClickListener.onButton2Click(detectedText, position);
+                recyclerViewButtonClickListener.onButton2Click(detectText(holder.mImageView), position);
             }
         });
     }
