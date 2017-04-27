@@ -141,18 +141,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         Frame frame = new Frame.Builder().setBitmap(convertedBitmap).build();
 
         SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
-        String detectedText = "";
-
-        Log.v(LOG_TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
-        for(int i = 0; i < textBlockSparseArray.size(); i++)    {
-            TextBlock textBlock = textBlockSparseArray.valueAt(i);
-            detectedText += textBlock.getValue();
-            Log.v(LOG_TAG, " Text! " + textBlock.getValue());
-        }
-
-        Log.v(LOG_TAG, " Exiting detectText " + detectedText);
-
-        return detectedText;
+//        String detectedText = "";
+//
+//        Log.v(LOG_TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
+//        for(int i = 0; i < textBlockSparseArray.size(); i++)    {
+//            TextBlock textBlock = textBlockSparseArray.valueAt(i);
+//            detectedText += textBlock.getValue();
+//            Log.v(LOG_TAG, " Text! " + textBlock.getValue());
+//        }
+//
+//        Log.v(LOG_TAG, " Exiting detectText " + detectedText);
+//
+//        return detectedText;
+        return textBlockSparseArray;
     }
 
     private Bitmap convert(Bitmap bitmap, Bitmap.Config config) {
