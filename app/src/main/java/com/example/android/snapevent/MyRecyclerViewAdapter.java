@@ -118,7 +118,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return fileNames.size();
     }
 
-    public String detectText(ImageView mImageView)  {
+    public SparseArray<TextBlock> detectText(ImageView mImageView)  {
 //        Log.v(LOG_TAG, " Entering detectText " + imageViewID);
         Log.v(LOG_TAG, " Entering detectText ");
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
