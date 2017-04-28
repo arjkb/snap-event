@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity
         Log.v(TAG, " MA: Pressed negative dialog button");
     }
 
-    public boolean isMonth(String s)    {
+    public boolean hasMonth(String s)    {
         if(s.toLowerCase().contains("jan")) {
             return true;
         } else if(s.toLowerCase().contains("feb"))  {
