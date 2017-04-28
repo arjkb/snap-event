@@ -284,6 +284,7 @@ public class MainActivity extends AppCompatActivity
                 return line;
             }
         }
+        return null;
     }
 
     public boolean hasMonth(String s)    {
