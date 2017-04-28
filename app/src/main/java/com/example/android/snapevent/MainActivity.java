@@ -425,10 +425,10 @@ public class MainActivity extends AppCompatActivity
         Log.v(TAG, year + "\n");
 
         Calendar startTime = Calendar.getInstance();
-        startTime.set(year, month, day, 8, 0);
+        startTime.set(year, month, day);
 
         Calendar endTime = Calendar.getInstance();
-        endTime.set(year, month, day, 9, 0);
+        endTime.set(year, month, day);
 
         long eventTime1 = startTime.getTimeInMillis();
         long eventTime2 = endTime.getTimeInMillis();
@@ -437,6 +437,7 @@ public class MainActivity extends AppCompatActivity
         intent.setType("vnd.android.cursor.item/event");
         intent.putExtra("beginTime", eventTime1);
         intent.putExtra("endTime", eventTime2);//+60*60*1000);
+        intent.putExtra("allDay", true);
         intent.putExtra("title", title);
         intent.putExtra("description", "Event Description");
         intent.putExtra("eventLocation", location);
