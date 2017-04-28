@@ -3,7 +3,7 @@ package com.example.android.snapevent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.android.simplecamera.R;
+import com.example.android.snapevent.R;
 
 public class AboutPageActivity extends AppCompatActivity {
 
