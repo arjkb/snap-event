@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.Line;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
@@ -39,8 +40,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Collections.EMPTY_LIST;
 
 public class MainActivity extends AppCompatActivity
                 implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener,
@@ -222,11 +227,55 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onButton2Click(String detectedText, int position) {
+    public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position)   {
         // method in RecyclerViewButtonClickListener
-        Log.v(TAG, " MA: Pressed button 2 at position " + position);
-        showCreateEventDialog(detectedText);
+
+        List<Line> lines = getLines(textBlockSparseArray);
+        for(Line line: lines)   {
+            Log.v(TAG, "Line: " + line.getValue());
+        }
+
+        Line dateLine = getDateLine(lines);
+        Line eventTitle = lines.get(0);
+        Line eventLocation = lines.get(lines.size() - 1);
+
+        if (dateLine != null)   {
+            Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
+            Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
+            Log.v(TAG, "YEAR: " + parseDate(dateLine, DateType.YEAR));
+            Log.v(TAG, "Title: " + eventTitle.getValue());
+            Log.v(TAG, "Location: " + eventLocation.getValue());
+
+        } else {
+            Log.v(TAG, " DATELINE IS NULL ");
+        }
+
+        setUpEvent(eventTitle.getValue(),
+                parseDate(dateLine, DateType.DAY),
+                parseDate(dateLine, DateType.MONTH),
+                parseDate(dateLine, DateType.YEAR),
+                eventLocation.getValue()
+        );
     }
+
+    List<Line> getLines(SparseArray<TextBlock> tb)  {
+        List<Line> lines = new ArrayList<>();
+
+        Log.v(TAG, " Inside getLines()");
+        Log.v(TAG, "textBlockSparseArray Size: " + tb.size());
+        for (int i = 0; i < tb.size(); i++) {
+            TextBlock textBlock = tb.valueAt(i);
+            lines.addAll((Collection<? extends Line>) textBlock.getComponents());
+            Log.v(TAG, " TextBlock - " + i + ": " + textBlock.getValue());
+        }
+        return lines;
+    }
+//    @Override
+//    public void onButton2Click(String detectedText, int position) {
+//        // method in RecyclerViewButtonClickListener
+//        Log.v(TAG, " MA: Pressed button 2 at position " + position);
+//        showCreateEventDialog(detectedText);
+//    }
 
     public void showCreateEventDialog(String dialogMessage) {
         DialogFragment newFragment = new CreateEventDialogFragment(dialogMessage);
@@ -246,5 +295,174 @@ public class MainActivity extends AppCompatActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
         // method in CreateEventDialogListener
         Log.v(TAG, " MA: Pressed negative dialog button");
+
     }
+
+    public Line getDateLine(List<Line> lines)   {
+        for(Line line: lines)   {
+            if(hasMonth(line.getValue()))   {
+                Log.v(TAG, " DateLine: " + line.getValue());
+                return line;
+            }
+        }
+        return null;
+    }
+
+    public int parseDate(final Line dateLine, int resourceType)   {
+        final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
+        final int EXPECTED_FIELD_COUNT = 3;
+
+        if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
+            Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
+        }
+
+        switch (resourceType)   {
+            case DateType.DAY:
+                return getDay(dateLineStrings[0]);
+
+            case DateType.MONTH:
+                for(String dateLineString: dateLineStrings) {
+                    if(hasMonth(dateLineString))    {
+                        return getMonth(dateLineString);
+                    }
+                }
+                break;
+
+            case DateType.YEAR:
+                return getYear(dateLineStrings[2]);
+        }
+        return DateType.INVALID;
+    }
+
+    public boolean hasMonth(String s)    {
+        if(s.toLowerCase().contains("jan")) {
+            return true;
+        } else if(s.toLowerCase().contains("feb"))  {
+            return true;
+        } else if(s.toLowerCase().contains("mar"))  {
+            return true;
+        } else if(s.toLowerCase().contains("apr"))  {
+            return true;
+        } else if(s.toLowerCase().contains("may"))  {
+            return true;
+        } else if(s.toLowerCase().contains("jun"))  {
+            return true;
+        } else if(s.toLowerCase().contains("jul"))  {
+            return true;
+        } else if(s.toLowerCase().contains("aug"))  {
+            return true;
+        } else if(s.toLowerCase().contains("sep"))  {
+            return true;
+        } else if(s.toLowerCase().contains("oct"))  {
+            return true;
+        } else if(s.toLowerCase().contains("nov"))  {
+            return true;
+        } else if(s.toLowerCase().contains("dec"))  {
+            return true;
+        } else  {
+            return false;
+        }
+    }
+
+    public int getDay(String s)   {
+        int day = 0;
+        try {
+            day = Integer.parseInt(s);
+        } catch (NumberFormatException e)   {
+            Log.e(TAG, " getDay(). NumberFormatException " + e.toString());
+        }
+        return day;
+    }
+
+    public int getYear(String s)    {
+        int year = 0;
+        try {
+            year = Integer.parseInt(s);
+        } catch (NumberFormatException e)   {
+            Log.e(TAG, " getYear(). NumberFormatException " + e.toString());
+        }
+        return year;
+    }
+
+    public int getMonth(String s)    {
+        if(s.toLowerCase().contains("jan")) {
+            return Month.JAN;
+        } else if(s.toLowerCase().contains("feb"))  {
+            return Month.FEB;
+        } else if(s.toLowerCase().contains("mar"))  {
+            return Month.MAR;
+        } else if(s.toLowerCase().contains("apr"))  {
+            return Month.APR;
+        } else if(s.toLowerCase().contains("may"))  {
+            return Month.MAY;
+        } else if(s.toLowerCase().contains("jun"))  {
+            return Month.JUN;
+        } else if(s.toLowerCase().contains("jul"))  {
+            return Month.JUL;
+        } else if(s.toLowerCase().contains("aug"))  {
+            return Month.AUG;
+        } else if(s.toLowerCase().contains("sep"))  {
+            return Month.SEP;
+        } else if(s.toLowerCase().contains("oct"))  {
+            return Month.OCT;
+        } else if(s.toLowerCase().contains("nov"))  {
+            return Month.NOV;
+        } else if(s.toLowerCase().contains("dec"))  {
+            return Month.DEC;
+        } else  {
+            return Month.INVALID;
+        }
+    }
+
+    public void setUpEvent(String title,
+                           final int day,
+                           final int month,
+                           final int year,
+                           final String location) {
+
+        Log.v(TAG, day + "\n");
+        Log.v(TAG, month + "\n");
+        Log.v(TAG, year + "\n");
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(year, month, day, 8, 0);
+
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(year, month, day, 9, 0);
+
+        long eventTime1 = startTime.getTimeInMillis();
+        long eventTime2 = endTime.getTimeInMillis();
+
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", eventTime1);
+        intent.putExtra("endTime", eventTime2);//+60*60*1000);
+        intent.putExtra("title", title);
+        intent.putExtra("description", "Event Description");
+        intent.putExtra("eventLocation", location);
+        startActivity(intent);
+    }
+}
+
+interface DateType  {
+    public static final int DAY = 0;
+    public static final int MONTH = 1;
+    public static final int YEAR = 2;
+    public static final int INVALID = 998;
+}
+
+interface Month {
+    public static final int JAN = 0;
+    public static final int FEB = 1;
+    public static final int MAR = 2;
+    public static final int APR = 3;
+    public static final int MAY = 4;
+    public static final int JUN = 5;
+    public static final int JUL = 6;
+    public static final int AUG = 7;
+    public static final int SEP = 8;
+    public static final int OCT = 9;
+    public static final int NOV = 10;
+    public static final int DEC = 11;
+    public static final int INVALID = 999;
 }
