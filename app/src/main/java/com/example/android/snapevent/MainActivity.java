@@ -246,16 +246,17 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Title: " + eventTitle.getValue());
             Log.v(TAG, "Location: " + eventLocation.getValue());
 
+            setUpEvent(eventTitle.getValue(),
+                    parseDate(dateLine, DateType.DAY),
+                    parseDate(dateLine, DateType.MONTH),
+                    parseDate(dateLine, DateType.YEAR),
+                    eventLocation.getValue()
+            );
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
         }
 
-        setUpEvent(eventTitle.getValue(),
-                parseDate(dateLine, DateType.DAY),
-                parseDate(dateLine, DateType.MONTH),
-                parseDate(dateLine, DateType.YEAR),
-                eventLocation.getValue()
-        );
+
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
