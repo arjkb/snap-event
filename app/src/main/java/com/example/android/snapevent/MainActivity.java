@@ -153,14 +153,6 @@ public class MainActivity extends AppCompatActivity
                         "Photo not taken",
                         Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode == REQUEST_CREATE_CAL_EVENT) {
-            Log.v(TAG, "onActivityResult() CAL_EVENT!");
-            if (resultCode == RESULT_CANCELED)  {
-                Toast.makeText(getApplicationContext(),
-                        "Calendar event creation aborted.",
-                        Toast.LENGTH_LONG).show();
-
-            }
         }
     }
 
@@ -481,7 +473,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("title", title);
         intent.putExtra("description", "Event Description");
         intent.putExtra("eventLocation", location);
-        startActivityForResult(intent, REQUEST_CREATE_CAL_EVENT);
+        startActivity(intent);
     }
 }
 
