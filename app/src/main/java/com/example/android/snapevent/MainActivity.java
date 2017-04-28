@@ -312,12 +312,27 @@ public class MainActivity extends AppCompatActivity
         final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
         final int EXPECTED_FIELD_COUNT = 3;
 
+        int day = 0;
+
         if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
             Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
         }
 
         switch (resourceType)   {
             case DateType.DAY:
+                for(String s: dateLineStrings)  {
+                    s = s.replaceAll("([.,;:])", "");
+
+                    try {
+                        day = Integer.parseInt(s);
+                        if (day >= 1 && day <= 31)  {
+                            return day;
+                        }
+                    } catch (NumberFormatException e)   {
+                        Log.w(TAG, " NumberFormatException for " + s + ": " + e.toString());
+                        continue;
+                    }
+                }
                 return getDay(dateLineStrings[0]);
 
             case DateType.MONTH:
