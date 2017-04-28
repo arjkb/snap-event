@@ -277,6 +277,14 @@ public class MainActivity extends AppCompatActivity
         Log.v(TAG, " MA: Pressed negative dialog button");
     }
 
+    public Line getDateLine(List<Line> lines)   {
+        for(Line line: lines)   {
+            if(hasMonth(line.getValue()))   {
+                return line;
+            }
+        }
+    }
+    
     public boolean hasMonth(String s)    {
         if(s.toLowerCase().contains("jan")) {
             return true;
