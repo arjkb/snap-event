@@ -240,6 +240,7 @@ public class MainActivity extends AppCompatActivity
         if (dateLine != null)   {
             Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
             Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
+            Log.v(TAG, "YEAR: " + parseDate(dateLine, DateType.YEAR));
 
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
@@ -311,6 +312,9 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
                 break;
+
+            case DateType.YEAR:
+                return getYear(dateLineStrings[2]);
         }
         return DateType.INVALID;
     }
@@ -353,6 +357,16 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, " getDay(). NumberFormatException " + e.toString());
         }
         return day;
+    }
+
+    public int getYear(String s)    {
+        int year = 0;
+        try {
+            year = Integer.parseInt(s);
+        } catch (NumberFormatException e)   {
+            Log.e(TAG, " getYear(). NumberFormatException " + e.toString());
+        }
+        return year;
     }
 
     public int getMonth(String s)    {
