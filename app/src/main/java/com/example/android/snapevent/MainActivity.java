@@ -300,6 +300,11 @@ public class MainActivity extends AppCompatActivity
 
     public int parseDate(final Line dateLine, int resourceType)   {
         final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
+        final int EXPECTED_FIELD_COUNT = 3;
+
+        if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
+            Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
+        }
 
         switch (resourceType)   {
             case DateType.DAY:
