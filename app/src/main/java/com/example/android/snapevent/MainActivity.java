@@ -344,6 +344,18 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case DateType.YEAR:
+                for(String s: dateLineStrings)  {
+                    s = s.replaceAll("([.,;:])", "");
+
+                    try {
+                        if (s.matches("^[0-9]{4}$"))  {
+                            return Integer.parseInt(s);
+                        }
+                    } catch (NumberFormatException e)   {
+                        Log.w(TAG, " YEAR NumberFormatException for " + s + ": " + e.toString());
+                        continue;
+                    }
+                }
                 return getYear(dateLineStrings[2]);
         }
         return DateType.INVALID;
