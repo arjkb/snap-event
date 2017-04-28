@@ -1,12 +1,7 @@
 package com.example.android.snapevent;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,17 +18,10 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.Line;
 import com.google.android.gms.vision.text.TextBlock;
-import com.google.android.gms.vision.text.TextRecognizer;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,8 +32,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
-import static java.util.Collections.EMPTY_LIST;
 
 public class MainActivity extends AppCompatActivity
                 implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener,
@@ -69,8 +55,6 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 dispatchTakePictureIntent();
             }
         });
@@ -141,10 +125,6 @@ public class MainActivity extends AppCompatActivity
                                                         Snackbar.LENGTH_LONG
                 );
                 detectTextSnackbar.show();
-
-//                Toast.makeText(getApplicationContext(),
-//                        "Photo available in the gallery",
-//                        Toast.LENGTH_SHORT).show();
             }
             else if (resultCode == RESULT_CANCELED) {
                 Log.v(TAG, " Inside onActivityResult() after taking picture!");
@@ -274,12 +254,6 @@ public class MainActivity extends AppCompatActivity
         }
         return lines;
     }
-//    @Override
-//    public void onButton2Click(String detectedText, int position) {
-//        // method in RecyclerViewButtonClickListener
-//        Log.v(TAG, " MA: Pressed button 2 at position " + position);
-//        showCreateEventDialog(detectedText);
-//    }
 
     public void showCreateEventDialog(String dialogMessage) {
         DialogFragment newFragment = new CreateEventDialogFragment(dialogMessage);
