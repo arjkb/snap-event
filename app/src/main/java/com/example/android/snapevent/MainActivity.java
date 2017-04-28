@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -272,5 +273,40 @@ public class MainActivity extends AppCompatActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
         // method in CreateEventDialogListener
         Log.v(TAG, " MA: Pressed negative dialog button");
+    }
+
+    public void setUpEvent(String date, int month, String firstLine, String lastLine) {
+        String splitWords = date;
+        String[] strArray = splitWords.split(" ");
+
+        int day = Integer.parseInt(strArray[0]);
+        //int y = Integer.parseInt(strArray[1]);
+        int year = Integer.parseInt(strArray[2]);
+
+        Log.v(TAG, day + "\n");
+        Log.v(TAG, month + "\n");
+        Log.v(TAG, year + "\n");
+        Log.v(TAG, "First Line: " + firstLine + "\n");
+        Log.v(TAG, "Last Line: " + lastLine + "\n");
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(year, month, day, 8, 0);
+
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(year, month, day, 9, 0);
+
+        long eventTime1 = startTime.getTimeInMillis();
+        long eventTime2 = endTime.getTimeInMillis();
+
+        String title = firstLine;
+        String location = lastLine;
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", eventTime1);
+        intent.putExtra("endTime", eventTime2);//+60*60*1000);
+        intent.putExtra("title", title);
+        intent.putExtra("description", "Event Description");
+        intent.putExtra("eventLocation", location);
+        startActivity(intent);
     }
 }
