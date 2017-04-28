@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            Toast.makeText(getApplicationContext(), "Settings Pressed!", Toast.LENGTH_SHORT).show();
             Intent aboutPageIntent = new Intent(this, AboutPageActivity.class);
             startActivity(aboutPageIntent);
             return true;
