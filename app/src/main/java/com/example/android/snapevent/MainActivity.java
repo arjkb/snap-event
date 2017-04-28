@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity
                         continue;
                     }
                 }
-                return getDay(dateLineStrings[0]);
+                break;
 
             case DateType.MONTH:
                 for(String dateLineString: dateLineStrings) {
@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity
                         continue;
                     }
                 }
-                return getYear(dateLineStrings[2]);
+                break;
         }
         return DateType.INVALID;
     }
