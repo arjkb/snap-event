@@ -222,11 +222,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onButton2Click(String detectedText, int position) {
+    public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position)   {
         // method in RecyclerViewButtonClickListener
-        Log.v(TAG, " MA: Pressed button 2 at position " + position);
-        showCreateEventDialog(detectedText);
+        Log.v(TAG, "textBlockSparseArray Size: " + textBlockSparseArray.size());
+        
+        for (int i = 0; i < textBlockSparseArray.size(); i++) {
+            TextBlock textBlock = textBlockSparseArray.valueAt(i);
+            Log.v(TAG, " TextBlock - 1: " + textBlock.getValue());
+        }
     }
+//    @Override
+//    public void onButton2Click(String detectedText, int position) {
+//        // method in RecyclerViewButtonClickListener
+//        Log.v(TAG, " MA: Pressed button 2 at position " + position);
+//        showCreateEventDialog(detectedText);
+//    }
 
     public void showCreateEventDialog(String dialogMessage) {
         DialogFragment newFragment = new CreateEventDialogFragment(dialogMessage);
