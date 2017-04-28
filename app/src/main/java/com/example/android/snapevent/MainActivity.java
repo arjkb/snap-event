@@ -234,6 +234,8 @@ public class MainActivity extends AppCompatActivity
         for(Line line: lines)   {
             Log.v(TAG, "Line: " + line.getValue());
         }
+
+        setUpEvent("10 April 2017", 4, "Foo Event", "New York");
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
