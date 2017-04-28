@@ -236,11 +236,15 @@ public class MainActivity extends AppCompatActivity
         }
 
         Line dateLine = getDateLine(lines);
+        Line eventTitle = lines.get(0);
+        Line eventLocation = lines.get(lines.size() - 1);
 
         if (dateLine != null)   {
             Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
             Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
             Log.v(TAG, "YEAR: " + parseDate(dateLine, DateType.YEAR));
+            Log.v(TAG, "Title: " + eventTitle.getValue());
+            Log.v(TAG, "Location: " + eventLocation.getValue());
 
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
@@ -404,7 +408,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void setUpEvent(String date, int month, String firstLine, String lastLine) {
+//    public void setUpEvent(String date, int month, String firstLine, String lastLine) {
+    public void setUpEvent(String eventTitle,
+                           final int day,
+                           final int month,
+                           final int year,
+                           final String location) {
+
         String splitWords = date;
         String[] strArray = splitWords.split(" ");
 
