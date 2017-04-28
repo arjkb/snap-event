@@ -58,6 +58,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:autoLink="email"
+                android:linksClickable="true"
                 android:text="@string/dev1_email"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:layout_editor_absoluteY="174dp" />
@@ -71,6 +72,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:autoLink="web"
+                android:linksClickable="true"
                 android:text="@string/dev1_github"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:layout_editor_absoluteY="234dp" />
@@ -115,7 +117,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:autoLink="email"
-
+                android:linksClickable="true"
                 android:text="@string/dev2_email"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:layout_editor_absoluteY="234dp" />
@@ -129,6 +131,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:autoLink="web"
+                android:linksClickable="true"
                 android:text="@string/dev2_github"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:layout_editor_absoluteY="234dp" />
