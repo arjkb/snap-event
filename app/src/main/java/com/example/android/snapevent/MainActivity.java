@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity
 
         if (dateLine != null)   {
             Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
+            Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
 
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
@@ -300,6 +301,9 @@ public class MainActivity extends AppCompatActivity
         final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
 
         switch (resourceType)   {
+            case DateType.DAY:
+                return getDay(dateLineStrings[0]);
+
             case DateType.MONTH:
                 for(String dateLineString: dateLineStrings) {
                     if(hasMonth(dateLineString))    {
@@ -339,6 +343,16 @@ public class MainActivity extends AppCompatActivity
         } else  {
             return false;
         }
+    }
+
+    public int getDay(String s)   {
+        int day = 0;
+        try {
+            day = Integer.parseInt(s);
+        } catch (NumberFormatException e)   {
+            Log.e(TAG, " getDay(). NumberFormatException " + e.toString());
+        }
+        return day;
     }
 
     public int getMonth(String s)    {
