@@ -475,10 +475,10 @@ public class MainActivity extends AppCompatActivity
 }
 
 interface DateType  {
-    public static final int DAY = 0;
-    public static final int MONTH = 1;
-    public static final int YEAR = 2;
-    public static final int INVALID = 998;
+    public static final int DAY = 1;
+    public static final int MONTH = 2;
+    public static final int YEAR = 3;
+    public static final int INVALID = 0;
 }
 
 interface Month {
