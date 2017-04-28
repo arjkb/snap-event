@@ -47,7 +47,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public interface RecyclerViewButtonClickListener {
         public void onButton1Click(int position);
-        public void onButton2Click(String detectedText, int position);
+        public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position);
     }
 
     private RecyclerViewButtonClickListener recyclerViewButtonClickListener;
@@ -105,10 +105,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 String buttonClickMessage = "Clicked button 2 at position " + position;
                 Log.v(LOG_TAG, buttonClickMessage);
 
-                String detectedText = detectText(holder.mImageView);
-                Log.v(LOG_TAG, " Yippy! DT: " + detectedText);
+//                String detectedText = detectText(holder.mImageView);
+//                Log.v(LOG_TAG, " Yippy! DT: " + detectedText);
 
-                recyclerViewButtonClickListener.onButton2Click(detectedText, position);
+//                recyclerViewButtonClickListener.onButton2Click(detectedText, position);
+                recyclerViewButtonClickListener.onButton2Click(detectText(holder.mImageView), position);
             }
         });
     }
@@ -118,7 +119,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return fileNames.size();
     }
 
-    public String detectText(ImageView mImageView)  {
+    public SparseArray<TextBlock> detectText(ImageView mImageView)  {
 //        Log.v(LOG_TAG, " Entering detectText " + imageViewID);
         Log.v(LOG_TAG, " Entering detectText ");
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
@@ -141,18 +142,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         Frame frame = new Frame.Builder().setBitmap(convertedBitmap).build();
 
         SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
-        String detectedText = "";
-
-        Log.v(LOG_TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
-        for(int i = 0; i < textBlockSparseArray.size(); i++)    {
-            TextBlock textBlock = textBlockSparseArray.valueAt(i);
-            detectedText += textBlock.getValue();
-            Log.v(LOG_TAG, " Text! " + textBlock.getValue());
-        }
-
-        Log.v(LOG_TAG, " Exiting detectText " + detectedText);
-
-        return detectedText;
+//        String detectedText = "";
+//
+//        Log.v(LOG_TAG, " textBoxSparseArray size: " + textBlockSparseArray.size());
+//        for(int i = 0; i < textBlockSparseArray.size(); i++)    {
+//            TextBlock textBlock = textBlockSparseArray.valueAt(i);
+//            detectedText += textBlock.getValue();
+//            Log.v(LOG_TAG, " Text! " + textBlock.getValue());
+//        }
+//
+//        Log.v(LOG_TAG, " Exiting detectText " + detectedText);
+//
+//        return detectedText;
+        return textBlockSparseArray;
     }
 
     private Bitmap convert(Bitmap bitmap, Bitmap.Config config) {
