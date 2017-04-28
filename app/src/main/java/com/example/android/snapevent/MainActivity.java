@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.Line;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
@@ -39,8 +40,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Collections.EMPTY_LIST;
 
 public class MainActivity extends AppCompatActivity
                 implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener,
@@ -224,11 +228,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position)   {
         // method in RecyclerViewButtonClickListener
+
+        List<Line> lines = new ArrayList<>();
+
         Log.v(TAG, "textBlockSparseArray Size: " + textBlockSparseArray.size());
-        
         for (int i = 0; i < textBlockSparseArray.size(); i++) {
             TextBlock textBlock = textBlockSparseArray.valueAt(i);
-            Log.v(TAG, " TextBlock - 1: " + textBlock.getValue());
+            lines.addAll((Collection<? extends Line>) textBlock.getComponents());
+            Log.v(TAG, " TextBlock - " + i + ": " + textBlock.getValue());
+        }
+
+        for(Line line: lines)   {
+            Log.v(TAG, "Line: " + line.getValue());
         }
     }
 //    @Override
