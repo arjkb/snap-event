@@ -29,6 +29,7 @@
                 android:id="@+id/dummy_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Hi"/>
             <LinearLayout
                 android:layout_width="match_parent"
