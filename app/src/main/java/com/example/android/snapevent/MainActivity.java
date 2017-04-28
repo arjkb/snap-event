@@ -275,6 +275,7 @@ public class MainActivity extends AppCompatActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
         // method in CreateEventDialogListener
         Log.v(TAG, " MA: Pressed negative dialog button");
+
     }
 
     public Line getDateLine(List<Line> lines)   {
@@ -284,7 +285,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-    
+
     public boolean hasMonth(String s)    {
         if(s.toLowerCase().contains("jan")) {
             return true;
@@ -313,6 +314,10 @@ public class MainActivity extends AppCompatActivity
         } else  {
             return false;
         }
+    }
+
+    public enum DateType    {
+        DAY, MONTH, YEAR
     }
 
     public void setUpEvent(String date, int month, String firstLine, String lastLine) {
