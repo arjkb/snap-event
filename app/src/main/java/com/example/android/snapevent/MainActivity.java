@@ -277,6 +277,36 @@ public class MainActivity extends AppCompatActivity
         Log.v(TAG, " MA: Pressed negative dialog button");
     }
 
+    public boolean isMonth(String s)    {
+        if(s.toLowerCase().contains("jan")) {
+            return true;
+        } else if(s.toLowerCase().contains("feb"))  {
+            return true;
+        } else if(s.toLowerCase().contains("mar"))  {
+            return true;
+        } else if(s.toLowerCase().contains("apr"))  {
+            return true;
+        } else if(s.toLowerCase().contains("may"))  {
+            return true;
+        } else if(s.toLowerCase().contains("jun"))  {
+            return true;
+        } else if(s.toLowerCase().contains("jul"))  {
+            return true;
+        } else if(s.toLowerCase().contains("aug"))  {
+            return true;
+        } else if(s.toLowerCase().contains("sep"))  {
+            return true;
+        } else if(s.toLowerCase().contains("oct"))  {
+            return true;
+        } else if(s.toLowerCase().contains("nov"))  {
+            return true;
+        } else if(s.toLowerCase().contains("dec"))  {
+            return true;
+        } else  {
+            return false;
+        }
+    }
+
     public void setUpEvent(String date, int month, String firstLine, String lastLine) {
         String splitWords = date;
         String[] strArray = splitWords.split(" ");
