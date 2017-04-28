@@ -5,4 +5,13 @@
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_positive">Create Event</string>
     <string name="dialog_title">Create Event?</string>
+
+    <string name="dev1_name">Arjun Krishna Babu</string>
+    <string name="dev2_name">Arjun Krishna Babu</string>
+
+    <string name="dev1_email">arjunkrishnababu96@unm.edu</string>
+    <string name="dev2_email">akaberle@unm.edu</string>
+
+    <string name="dev1_github">github.com/arjunkrishnababu96</string>
+    <string name="dev2_github">github.com/akalerlein</string>
 </resources>
