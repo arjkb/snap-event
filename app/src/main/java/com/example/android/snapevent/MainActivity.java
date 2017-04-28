@@ -254,6 +254,8 @@ public class MainActivity extends AppCompatActivity
             );
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
+            Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
+                    .show();
         }
 
 
