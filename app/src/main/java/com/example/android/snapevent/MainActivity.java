@@ -235,7 +235,17 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Line: " + line.getValue());
         }
 
-        setUpEvent("10 April 2017", 4, "Foo Event", "New York");
+        Line dateLine = getDateLine(lines);
+
+        if (dateLine != null)   {
+            Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
+            Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
+            Log.v(TAG, "YEAR: " + parseDate(dateLine, DateType.YEAR));
+
+        } else {
+            Log.v(TAG, " DATELINE IS NULL ");
+        }
+//        setUpEvent("10 April 2017", 4, "Foo Event", "New York");
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
@@ -275,6 +285,123 @@ public class MainActivity extends AppCompatActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
         // method in CreateEventDialogListener
         Log.v(TAG, " MA: Pressed negative dialog button");
+
+    }
+
+    public Line getDateLine(List<Line> lines)   {
+        for(Line line: lines)   {
+            if(hasMonth(line.getValue()))   {
+                Log.v(TAG, " DateLine: " + line.getValue());
+                return line;
+            }
+        }
+        return null;
+    }
+
+    public int parseDate(final Line dateLine, int resourceType)   {
+        final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
+        final int EXPECTED_FIELD_COUNT = 3;
+
+        if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
+            Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
+        }
+
+        switch (resourceType)   {
+            case DateType.DAY:
+                return getDay(dateLineStrings[0]);
+
+            case DateType.MONTH:
+                for(String dateLineString: dateLineStrings) {
+                    if(hasMonth(dateLineString))    {
+                        return getMonth(dateLineString);
+                    }
+                }
+                break;
+
+            case DateType.YEAR:
+                return getYear(dateLineStrings[2]);
+        }
+        return DateType.INVALID;
+    }
+
+    public boolean hasMonth(String s)    {
+        if(s.toLowerCase().contains("jan")) {
+            return true;
+        } else if(s.toLowerCase().contains("feb"))  {
+            return true;
+        } else if(s.toLowerCase().contains("mar"))  {
+            return true;
+        } else if(s.toLowerCase().contains("apr"))  {
+            return true;
+        } else if(s.toLowerCase().contains("may"))  {
+            return true;
+        } else if(s.toLowerCase().contains("jun"))  {
+            return true;
+        } else if(s.toLowerCase().contains("jul"))  {
+            return true;
+        } else if(s.toLowerCase().contains("aug"))  {
+            return true;
+        } else if(s.toLowerCase().contains("sep"))  {
+            return true;
+        } else if(s.toLowerCase().contains("oct"))  {
+            return true;
+        } else if(s.toLowerCase().contains("nov"))  {
+            return true;
+        } else if(s.toLowerCase().contains("dec"))  {
+            return true;
+        } else  {
+            return false;
+        }
+    }
+
+    public int getDay(String s)   {
+        int day = 0;
+        try {
+            day = Integer.parseInt(s);
+        } catch (NumberFormatException e)   {
+            Log.e(TAG, " getDay(). NumberFormatException " + e.toString());
+        }
+        return day;
+    }
+
+    public int getYear(String s)    {
+        int year = 0;
+        try {
+            year = Integer.parseInt(s);
+        } catch (NumberFormatException e)   {
+            Log.e(TAG, " getYear(). NumberFormatException " + e.toString());
+        }
+        return year;
+    }
+
+    public int getMonth(String s)    {
+        if(s.toLowerCase().contains("jan")) {
+            return Month.JAN;
+        } else if(s.toLowerCase().contains("feb"))  {
+            return Month.FEB;
+        } else if(s.toLowerCase().contains("mar"))  {
+            return Month.MAR;
+        } else if(s.toLowerCase().contains("apr"))  {
+            return Month.APR;
+        } else if(s.toLowerCase().contains("may"))  {
+            return Month.MAY;
+        } else if(s.toLowerCase().contains("jun"))  {
+            return Month.JUN;
+        } else if(s.toLowerCase().contains("jul"))  {
+            return Month.JUL;
+        } else if(s.toLowerCase().contains("aug"))  {
+            return Month.AUG;
+        } else if(s.toLowerCase().contains("sep"))  {
+            return Month.SEP;
+        } else if(s.toLowerCase().contains("oct"))  {
+            return Month.OCT;
+        } else if(s.toLowerCase().contains("nov"))  {
+            return Month.NOV;
+        } else if(s.toLowerCase().contains("dec"))  {
+            return Month.DEC;
+        } else  {
+            return Month.INVALID;
+        }
     }
 
     public void setUpEvent(String date, int month, String firstLine, String lastLine) {
@@ -311,4 +438,27 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("eventLocation", location);
         startActivity(intent);
     }
+}
+
+interface DateType  {
+    public static final int DAY = 0;
+    public static final int MONTH = 1;
+    public static final int YEAR = 2;
+    public static final int INVALID = 998;
+}
+
+interface Month {
+    public static final int JAN = 0;
+    public static final int FEB = 1;
+    public static final int MAR = 2;
+    public static final int APR = 3;
+    public static final int MAY = 4;
+    public static final int JUN = 5;
+    public static final int JUL = 6;
+    public static final int AUG = 7;
+    public static final int SEP = 8;
+    public static final int OCT = 9;
+    public static final int NOV = 10;
+    public static final int DEC = 11;
+    public static final int INVALID = 999;
 }
