@@ -229,18 +229,23 @@ public class MainActivity extends AppCompatActivity
     public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position)   {
         // method in RecyclerViewButtonClickListener
 
-        List<Line> lines = new ArrayList<>();
-
-        Log.v(TAG, "textBlockSparseArray Size: " + textBlockSparseArray.size());
-        for (int i = 0; i < textBlockSparseArray.size(); i++) {
-            TextBlock textBlock = textBlockSparseArray.valueAt(i);
-            lines.addAll((Collection<? extends Line>) textBlock.getComponents());
-            Log.v(TAG, " TextBlock - " + i + ": " + textBlock.getValue());
-        }
-
+        List<Line> lines = getLines(textBlockSparseArray);
         for(Line line: lines)   {
             Log.v(TAG, "Line: " + line.getValue());
         }
+    }
+
+    List<Line> getLines(SparseArray<TextBlock> tb)  {
+        List<Line> lines = new ArrayList<>();
+
+        Log.v(TAG, " Inside getLines()");
+        Log.v(TAG, "textBlockSparseArray Size: " + tb.size());
+        for (int i = 0; i < tb.size(); i++) {
+            TextBlock textBlock = tb.valueAt(i);
+            lines.addAll((Collection<? extends Line>) textBlock.getComponents());
+            Log.v(TAG, " TextBlock - " + i + ": " + textBlock.getValue());
+        }
+        return lines;
     }
 //    @Override
 //    public void onButton2Click(String detectedText, int position) {
