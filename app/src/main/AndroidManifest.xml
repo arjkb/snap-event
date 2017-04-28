@@ -38,7 +38,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutPageActivity"></activity>
+        <activity android:name=".AboutPageActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.suppose.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
