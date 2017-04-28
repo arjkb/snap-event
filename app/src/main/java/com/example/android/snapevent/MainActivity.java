@@ -153,6 +153,14 @@ public class MainActivity extends AppCompatActivity
                         "Photo not taken",
                         Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == REQUEST_CREATE_CAL_EVENT) {
+            Log.v(TAG, "onActivityResult() CAL_EVENT!");
+            if (resultCode == RESULT_CANCELED)  {
+                Toast.makeText(getApplicationContext(),
+                        "Calendar event creation aborted.",
+                        Toast.LENGTH_LONG).show();
+
+            }
         }
     }
 
@@ -240,22 +248,26 @@ public class MainActivity extends AppCompatActivity
         Line eventLocation = lines.get(lines.size() - 1);
 
         if (dateLine != null)   {
-            Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
-            Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
-            Log.v(TAG, "YEAR: " + parseDate(dateLine, DateType.YEAR));
+            final int MONTH = parseDate(dateLine, DateType.MONTH);
+            final int DAY = parseDate(dateLine, DateType.DAY);
+            final int YEAR = parseDate(dateLine, DateType.YEAR);
+
+            Log.v(TAG, "MONTH: " + MONTH);
+            Log.v(TAG, "DAY: " + DAY);
+            Log.v(TAG, "YEAR: " + YEAR);
             Log.v(TAG, "Title: " + eventTitle.getValue());
             Log.v(TAG, "Location: " + eventLocation.getValue());
 
+            Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
+            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue());
+            Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
+            Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
+                    .show();
         }
 
-        setUpEvent(eventTitle.getValue(),
-                parseDate(dateLine, DateType.DAY),
-                parseDate(dateLine, DateType.MONTH),
-                parseDate(dateLine, DateType.YEAR),
-                eventLocation.getValue()
-        );
+
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
@@ -312,13 +324,28 @@ public class MainActivity extends AppCompatActivity
         final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
         final int EXPECTED_FIELD_COUNT = 3;
 
+        int day = 0;
+
         if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
             Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
         }
 
         switch (resourceType)   {
             case DateType.DAY:
-                return getDay(dateLineStrings[0]);
+                for(String s: dateLineStrings)  {
+                    s = s.replaceAll("([.,;:])", "");
+
+                    try {
+                        day = Integer.parseInt(s);
+                        if (day >= 1 && day <= 31)  {
+                            return day;
+                        }
+                    } catch (NumberFormatException e)   {
+                        Log.w(TAG, " NumberFormatException for " + s + ": " + e.toString());
+                        continue;
+                    }
+                }
+                break;
 
             case DateType.MONTH:
                 for(String dateLineString: dateLineStrings) {
@@ -329,7 +356,19 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case DateType.YEAR:
-                return getYear(dateLineStrings[2]);
+                for(String s: dateLineStrings)  {
+                    s = s.replaceAll("([.,;:])", "");
+
+                    try {
+                        if (s.matches("^[0-9]{4}$"))  {
+                            return Integer.parseInt(s);
+                        }
+                    } catch (NumberFormatException e)   {
+                        Log.w(TAG, " YEAR NumberFormatException for " + s + ": " + e.toString());
+                        continue;
+                    }
+                }
+                break;
         }
         return DateType.INVALID;
     }
@@ -414,6 +453,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
                            final int day,
                            final int month,
@@ -441,15 +481,15 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("title", title);
         intent.putExtra("description", "Event Description");
         intent.putExtra("eventLocation", location);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CREATE_CAL_EVENT);
     }
 }
 
 interface DateType  {
-    public static final int DAY = 0;
-    public static final int MONTH = 1;
-    public static final int YEAR = 2;
-    public static final int INVALID = 998;
+    public static final int DAY = 1;
+    public static final int MONTH = 2;
+    public static final int YEAR = 3;
+    public static final int INVALID = 0;
 }
 
 interface Month {
