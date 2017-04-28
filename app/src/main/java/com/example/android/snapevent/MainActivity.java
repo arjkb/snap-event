@@ -386,29 +386,29 @@ public class MainActivity extends AppCompatActivity
 
     public int getMonth(String s)    {
         if(s.toLowerCase().contains("jan")) {
-            return Month.JAN;
+            return Calendar.JANUARY;
         } else if(s.toLowerCase().contains("feb"))  {
-            return Month.FEB;
+            return Calendar.FEBRUARY;
         } else if(s.toLowerCase().contains("mar"))  {
-            return Month.MAR;
+            return Calendar.MARCH;
         } else if(s.toLowerCase().contains("apr"))  {
-            return Month.APR;
+            return Calendar.APRIL;
         } else if(s.toLowerCase().contains("may"))  {
-            return Month.MAY;
+            return Calendar.MAY;
         } else if(s.toLowerCase().contains("jun"))  {
-            return Month.JUN;
+            return Calendar.JUNE;
         } else if(s.toLowerCase().contains("jul"))  {
-            return Month.JUL;
+            return Calendar.JULY;
         } else if(s.toLowerCase().contains("aug"))  {
-            return Month.AUG;
+            return Calendar.AUGUST;
         } else if(s.toLowerCase().contains("sep"))  {
-            return Month.SEP;
+            return Calendar.SEPTEMBER;
         } else if(s.toLowerCase().contains("oct"))  {
-            return Month.OCT;
+            return Calendar.OCTOBER;
         } else if(s.toLowerCase().contains("nov"))  {
-            return Month.NOV;
+            return Calendar.NOVEMBER;
         } else if(s.toLowerCase().contains("dec"))  {
-            return Month.DEC;
+            return Calendar.DECEMBER;
         } else  {
             return Month.INVALID;
         }
