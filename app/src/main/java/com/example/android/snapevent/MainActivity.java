@@ -256,7 +256,6 @@ public class MainActivity extends AppCompatActivity
                 parseDate(dateLine, DateType.YEAR),
                 eventLocation.getValue()
         );
-//        setUpEvent("10 April 2017", 4, "Foo Event", "New York");
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
@@ -415,25 +414,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    public void setUpEvent(String date, int month, String firstLine, String lastLine) {
     public void setUpEvent(String title,
                            final int day,
                            final int month,
                            final int year,
                            final String location) {
 
-//        String splitWords = date;
-//        String[] strArray = splitWords.split(" ");
-//
-//        int day = Integer.parseInt(strArray[0]);
-//        //int y = Integer.parseInt(strArray[1]);
-//        int year = Integer.parseInt(strArray[2]);
-
         Log.v(TAG, day + "\n");
         Log.v(TAG, month + "\n");
         Log.v(TAG, year + "\n");
-//        Log.v(TAG, "First Line: " + firstLine + "\n");
-//        Log.v(TAG, "Last Line: " + lastLine + "\n");
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(year, month, day, 8, 0);
@@ -444,8 +433,6 @@ public class MainActivity extends AppCompatActivity
         long eventTime1 = startTime.getTimeInMillis();
         long eventTime2 = endTime.getTimeInMillis();
 
-//        String title = firstLine;
-//        String location = lastLine;
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setType("vnd.android.cursor.item/event");
         intent.putExtra("beginTime", eventTime1);
