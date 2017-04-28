@@ -240,18 +240,17 @@ public class MainActivity extends AppCompatActivity
         Line eventLocation = lines.get(lines.size() - 1);
 
         if (dateLine != null)   {
-            Log.v(TAG, "MONTH: " + parseDate(dateLine, DateType.MONTH));
-            Log.v(TAG, "DAY: " + parseDate(dateLine, DateType.DAY));
-            Log.v(TAG, "YEAR: " + parseDate(dateLine, DateType.YEAR));
+            final int MONTH = parseDate(dateLine, DateType.MONTH);
+            final int DAY = parseDate(dateLine, DateType.DAY);
+            final int YEAR = parseDate(dateLine, DateType.YEAR);
+
+            Log.v(TAG, "MONTH: " + MONTH);
+            Log.v(TAG, "DAY: " + DAY);
+            Log.v(TAG, "YEAR: " + YEAR);
             Log.v(TAG, "Title: " + eventTitle.getValue());
             Log.v(TAG, "Location: " + eventLocation.getValue());
 
-            setUpEvent(eventTitle.getValue(),
-                    parseDate(dateLine, DateType.DAY),
-                    parseDate(dateLine, DateType.MONTH),
-                    parseDate(dateLine, DateType.YEAR),
-                    eventLocation.getValue()
-            );
+            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue());
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
