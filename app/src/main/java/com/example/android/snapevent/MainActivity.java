@@ -250,7 +250,9 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Title: " + eventTitle.getValue());
             Log.v(TAG, "Location: " + eventLocation.getValue());
 
+            Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
             setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue());
+            Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
