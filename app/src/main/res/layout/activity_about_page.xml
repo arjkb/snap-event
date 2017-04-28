@@ -134,4 +134,41 @@
                 tools:layout_editor_absoluteY="234dp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/findus"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="bottom"
+        android:text="Find us on GitHub!"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dev2_card"
+        app:layout_constraintVertical_bias="0.151" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:autoLink="web"
+        android:gravity="top"
+        android:linksClickable="true"
+        android:text="github.com/arjunkrishnababu96/snap-event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findus"
+        app:layout_constraintVertical_bias="0.0" />
+
+
 </android.support.constraint.ConstraintLayout>
