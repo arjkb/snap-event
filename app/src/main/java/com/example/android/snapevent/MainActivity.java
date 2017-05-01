@@ -437,9 +437,9 @@ public class MainActivity extends AppCompatActivity
                            final String location,
                            String eventDescription) {
 
-        Log.v(TAG, day + "\n");
-        Log.v(TAG, month + "\n");
-        Log.v(TAG, year + "\n");
+        Log.v(TAG, " setUpEvent: " + day + "\n");
+        Log.v(TAG, " setUpEvent: " + month + "\n");
+        Log.v(TAG, " setUpEvent: " + year + "\n");
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(year, month, day);
