@@ -293,9 +293,9 @@ public class MainActivity extends AppCompatActivity
 
         int day = 0;
 
-        if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
-            Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
-        }
+//        if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
+//            Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
+//        }
 
         switch (resourceType)   {
             case DateType.DAY:
@@ -335,7 +335,8 @@ public class MainActivity extends AppCompatActivity
                         continue;
                     }
                 }
-                break;
+                return Calendar.getInstance().get(Calendar.YEAR);
+//                break;
         }
         return DateType.INVALID;
     }
