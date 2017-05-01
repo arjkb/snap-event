@@ -231,17 +231,16 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "YEAR: " + YEAR);
             Log.v(TAG, "Title: " + eventTitle.getValue());
             Log.v(TAG, "Location: " + eventLocation.getValue());
+            Log.v(TAG, "Description: " + getEventDescription(lines));
 
             Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
-            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue());
+            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
             Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
                     .show();
         }
-
-
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
@@ -421,12 +420,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public String getEventDescription(List<Line> lines)    {
+        String description = "";
+        for(Line line: lines)   {
+            description += line.getValue() + "\n";
+        }
+        return description;
+    }
+
     static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
                            final int day,
                            final int month,
                            final int year,
-                           final String location) {
+                           final String location,
+                           String eventDescription) {
 
         Log.v(TAG, day + "\n");
         Log.v(TAG, month + "\n");
@@ -447,7 +455,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("endTime", eventTime2);//+60*60*1000);
         intent.putExtra("allDay", true);
         intent.putExtra("title", title);
-        intent.putExtra("description", "Event Description");
+        intent.putExtra("description", eventDescription);
         intent.putExtra("eventLocation", location);
         startActivity(intent);
     }
