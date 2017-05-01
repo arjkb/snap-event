@@ -431,21 +431,21 @@ public class MainActivity extends AppCompatActivity
 
     static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
-                           final int day,
-                           final int month,
-                           final int year,
+                           final int DAY,
+                           final int MONTH,
+                           final int YEAR,
                            final String location,
                            String eventDescription) {
 
-        Log.v(TAG, " setUpEvent: " + day + "\n");
-        Log.v(TAG, " setUpEvent: " + month + "\n");
-        Log.v(TAG, " setUpEvent: " + year + "\n");
+        Log.v(TAG, " setUpEvent: " + DAY + "\n");
+        Log.v(TAG, " setUpEvent: " + MONTH + "\n");
+        Log.v(TAG, " setUpEvent: " + YEAR + "\n");
 
         Calendar startTime = Calendar.getInstance();
-        startTime.set(year, month, day);
+        startTime.set(YEAR, MONTH, DAY);
 
         Calendar endTime = Calendar.getInstance();
-        endTime.set(year, month, day);
+        endTime.set(YEAR, MONTH, DAY);
 
         long eventTime1 = startTime.getTimeInMillis();
         long eventTime2 = endTime.getTimeInMillis();
