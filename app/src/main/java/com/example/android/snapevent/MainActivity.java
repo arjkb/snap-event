@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public String getDescriptionString(List<Line> lines)    {
+    public String getEventDescription(List<Line> lines)    {
         String description = "";
         for(Line line: lines)   {
             description += line.getValue() + "\n";
