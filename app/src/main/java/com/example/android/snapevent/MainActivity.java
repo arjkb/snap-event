@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "YEAR: " + YEAR);
             Log.v(TAG, "Title: " + eventTitle.getValue());
             Log.v(TAG, "Location: " + eventLocation.getValue());
+            Log.v(TAG, "Description: " + getEventDescription(lines));
 
             Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
             setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue());
@@ -240,8 +241,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
                     .show();
         }
-
-
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
