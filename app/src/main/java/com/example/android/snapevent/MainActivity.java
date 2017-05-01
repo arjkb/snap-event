@@ -421,6 +421,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public String getDescriptionString(List<Line> lines)    {
+        String description = "";
+        for(Line line: lines)   {
+            description += line.getValue() + "\n";
+        }
+        return description;
+    }
+
     static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
                            final int day,
