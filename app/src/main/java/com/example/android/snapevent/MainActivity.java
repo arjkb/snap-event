@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Description: " + getEventDescription(lines));
 
             Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
-            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue());
+            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
             Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
         } else {
             Log.v(TAG, " DATELINE IS NULL ");
@@ -433,7 +433,8 @@ public class MainActivity extends AppCompatActivity
                            final int day,
                            final int month,
                            final int year,
-                           final String location) {
+                           final String location,
+                           String eventDescription) {
 
         Log.v(TAG, day + "\n");
         Log.v(TAG, month + "\n");
@@ -454,7 +455,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("endTime", eventTime2);//+60*60*1000);
         intent.putExtra("allDay", true);
         intent.putExtra("title", title);
-        intent.putExtra("description", "Event Description");
+        intent.putExtra("description", eventDescription);
         intent.putExtra("eventLocation", location);
         startActivity(intent);
     }
