@@ -3,5 +3,6 @@ An experimental android app to generate calendar events from the pictures of pos
 
 Uses [Google Mobile Vision.](https://developers.google.com/vision/)
 
-Developers: Arjun Krishna Babu
-            Alexander Kaberlein
+####  Developers
+* [Alexander Kaberlein](https://github.com/akaberlein)
+* [Arjun Krishna Babu](https://github.com/arjunkrishnababu96)
