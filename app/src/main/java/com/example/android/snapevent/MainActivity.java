@@ -152,20 +152,6 @@ public class MainActivity extends AppCompatActivity
         return image;
     }
 
-    void deleteEmptyImageFiles()    {
-        for(File f: Arrays.asList(storageDir.listFiles()))  {
-            if (f.isFile()) {
-                if (f.toString().contains("SNAPEVENT")) {
-                    if (f.length() == 0)    {
-                        // file is empty and must be deleted
-                        Log.v(TAG, " Empty file: " + f.length());
-                        f.delete();
-                    }
-                }
-            }
-        }
-    }
-
     private void galleryAddPic()    {
         Log.v(TAG, " Inside galleryAddPic()");
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
