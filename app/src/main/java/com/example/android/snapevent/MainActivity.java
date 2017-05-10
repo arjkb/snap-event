@@ -169,15 +169,16 @@ public class MainActivity extends AppCompatActivity
         /*  Pics taken by app has the word "SNAPEVENT" in filename.
             I know this is shady.
          */
-        for (File file: Arrays.asList(storageDir.listFiles()) )  {
-            Log.v(TAG, " Inside GFN() Looping!!" + file.toString());
-            if (file.isFile())   {
-                Log.v(TAG, " Inside GFN() isFile()");
-                if (file.toString().contains("SNAPEVENT"))    {
-                    Log.v(TAG, " Inside GFN() Adding File!!");
-                    inFiles.add(file);
+            for (File file : Arrays.asList(storageDir.listFiles())) {
+                Log.v(TAG, " Inside GFN() Looping!!" + file.toString());
+                if (file.isFile()) {
+                    Log.v(TAG, " Inside GFN() isFile()");
+                    if (file.toString().contains("SNAPEVENT")) {
+                        Log.v(TAG, " Inside GFN() Adding File!!");
+                        inFiles.add(file);
+                    }
                 }
-        }
+            }
         return inFiles;
     }
 
