@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity
 
         if(requestCode == REQUEST_IMAGE_CAPTURE)    {
             if(resultCode == RESULT_OK) {
-                Log.v(TAG, " Inside onActivityResult() after taking picture!");
+                Log.v(TAG, " Inside onActivityResult() RESULT_OK!");
+
                 galleryAddPic();
                 List<File> fileNames = getImageFileNames();
                 for(File fileName: fileNames)   {
@@ -130,7 +131,6 @@ public class MainActivity extends AppCompatActivity
                 detectTextSnackbar.show();
             }
             else if (resultCode == RESULT_CANCELED) {
-                Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 Log.v(TAG, " Inside onActivityResult() RESULT_CANCELED!");
                 Toast.makeText(getApplicationContext(),
                         "Photo not taken",
