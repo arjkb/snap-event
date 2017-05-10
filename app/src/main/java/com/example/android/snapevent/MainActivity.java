@@ -188,9 +188,15 @@ public class MainActivity extends AppCompatActivity
                 if (file.isFile()) {
                     Log.v(TAG, " Inside GFN() isFile()");
                     if (file.toString().contains("SNAPEVENT")) {
-                        Log.v(TAG, " getTotalSpace() " + file.length());
-                        Log.v(TAG, " Inside GFN() Adding File!!");
-                        inFiles.add(file);
+                        if (file.length() == 0) {
+                            Log.v(TAG, " getTotalSpace() " + file.length());
+                            if (file.delete()) {
+                                Log.v(TAG, " Deleted non-existent image file");
+                            }
+                        } else  {
+                            Log.v(TAG, " Inside GFN() Adding File!!");
+                            inFiles.add(file);
+                        }
                     }
                 }
             }
