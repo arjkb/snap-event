@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
+//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
+        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
     }
 
     private String[] getDummyText(int size) {
@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity
 
         if(requestCode == REQUEST_IMAGE_CAPTURE)    {
             if(resultCode == RESULT_OK) {
-                Log.v(TAG, " Inside onActivityResult() after taking picture!");
+                Log.v(TAG, " Inside onActivityResult() RESULT_OK!");
+
                 galleryAddPic();
                 List<File> fileNames = getImageFileNames();
                 for(File fileName: fileNames)   {
@@ -130,7 +131,6 @@ public class MainActivity extends AppCompatActivity
                 detectTextSnackbar.show();
             }
             else if (resultCode == RESULT_CANCELED) {
-                Log.v(TAG, " Inside onActivityResult() after taking picture!");
                 Log.v(TAG, " Inside onActivityResult() RESULT_CANCELED!");
                 Toast.makeText(getApplicationContext(),
                         "Photo not taken",
@@ -174,9 +174,15 @@ public class MainActivity extends AppCompatActivity
                 if (file.isFile()) {
                     Log.v(TAG, " Inside GFN() isFile()");
                     if (file.toString().contains("SNAPEVENT")) {
-                        Log.v(TAG, " getTotalSpace() " + file.length());
-                        Log.v(TAG, " Inside GFN() Adding File!!");
-                        inFiles.add(file);
+                        if (file.length() == 0) {
+                            Log.v(TAG, " getTotalSpace() " + file.length());
+                            if (file.delete()) {
+                                Log.v(TAG, " Deleted non-existent image file");
+                            }
+                        } else  {
+                            Log.v(TAG, " Inside GFN() Adding File!!");
+                            inFiles.add(file);
+                        }
                     }
                 }
             }
