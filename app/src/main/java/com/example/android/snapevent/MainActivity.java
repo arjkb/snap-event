@@ -47,9 +47,11 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        Log.v(TAG, " storageDir assigned: " + storageDir);
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
+//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
     }
 
     private String[] getDummyText(int size) {
@@ -90,7 +92,8 @@ public class MainActivity extends AppCompatActivity
                 Log.v(TAG, "Created image file! " + photoFile.toString());
             } catch (IOException E) {
                 // Error occurred while creating the file
-                final String TEXT="Error while creating image file! Aborting!";
+                final String TEXT="Error while creating image file! Aborting! ";
+                E.printStackTrace();
                 Log.v(TAG, TEXT);
                 Toast.makeText(getApplicationContext(), TEXT, Toast.LENGTH_SHORT).show();
 
@@ -161,6 +164,7 @@ public class MainActivity extends AppCompatActivity
         List<File> inFiles = new ArrayList<>();
 
         Log.v(TAG, " Inside getImageFileNames()!");
+        Log.v(TAG, " storageDir.listfiles() " + storageDir.listFiles());
 
         /*  Pics taken by app has the word "SNAPEVENT" in filename.
             I know this is shady.
@@ -173,7 +177,6 @@ public class MainActivity extends AppCompatActivity
                     Log.v(TAG, " Inside GFN() Adding File!!");
                     inFiles.add(file);
                 }
-            }
         }
         return inFiles;
     }
