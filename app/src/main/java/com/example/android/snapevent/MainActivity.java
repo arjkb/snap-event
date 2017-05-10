@@ -1,13 +1,20 @@
 package com.example.android.snapevent;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity
                             CreateEventDialogFragment.CreateEventDialogListener{
     
     public RecyclerView myRecyclerView;
+    static final int MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         Log.v(TAG, " storageDir assigned: " + storageDir);
@@ -57,7 +68,21 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                if (Build.VERSION.SDK_INT >= 23)    {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)   {
+                        Log.v(TAG, " Permission check! Granted!");
+                        dispatchTakePictureIntent();
+                    } else  {
+                        Log.v(TAG, " Permission check! NOT Granted! Requesting...");
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE);
+                    }
+                }
+                else    {
+                    // SDK < 23
+                    dispatchTakePictureIntent();
+                }
             }
         });
     }
@@ -66,6 +91,24 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)    {
+            case MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)    {
+                    // permission was granted
+                    dispatchTakePictureIntent();
+                } else {
+                    // permission denied.
+                    Toast.makeText(getApplicationContext(), "Permission denied by user!", Toast.LENGTH_SHORT);
+                }
+                return;
+            }
+        }
     }
 
     private String[] getDummyText(int size) {
