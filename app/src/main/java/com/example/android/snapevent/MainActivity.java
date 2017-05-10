@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity
         /*  Pics taken by app has the word "SNAPEVENT" in filename.
             I know this is shady.
          */
+        if( storageDir.listFiles() != null) {
             for (File file : Arrays.asList(storageDir.listFiles())) {
                 Log.v(TAG, " Inside GFN() Looping!!" + file.toString());
                 if (file.isFile()) {
@@ -179,13 +180,14 @@ public class MainActivity extends AppCompatActivity
                             if (file.delete()) {
                                 Log.v(TAG, " Deleted non-existent image file");
                             }
-                        } else  {
+                        } else {
                             Log.v(TAG, " Inside GFN() Adding File!!");
                             inFiles.add(file);
                         }
                     }
                 }
             }
+        }
         return inFiles;
     }
 
