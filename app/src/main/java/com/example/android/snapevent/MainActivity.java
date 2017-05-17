@@ -268,14 +268,13 @@ public class MainActivity extends AppCompatActivity
     public void onButton2Click(SparseArray<TextBlock> textBlockSparseArray, int position)   {
         // method in RecyclerViewButtonClickListener
 
-        List<Line> lines = getLines(textBlockSparseArray);
-        for(Line line: lines)   {
-            Log.v(TAG, "Line: " + line.getValue());
-        }
-
-        Line dateLine = null;
         try {
-            dateLine = getDateLine(lines);
+            List<Line> lines = getLines(textBlockSparseArray);
+            for(Line line: lines)   {
+                Log.v(TAG, "Line: " + line.getValue());
+            }
+
+            Line dateLine = getDateLine(lines);
             Line eventTitle = lines.get(0);
             Line eventLocation = lines.get(lines.size() - 1);
 
