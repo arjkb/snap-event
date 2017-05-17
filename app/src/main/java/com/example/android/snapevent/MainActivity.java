@@ -273,11 +273,16 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Line: " + line.getValue());
         }
 
-        Line dateLine = getDateLine(lines);
-        Line eventTitle = lines.get(0);
-        Line eventLocation = lines.get(lines.size() - 1);
+        Line dateLine = null;
+        try {
+            dateLine = getDateLine(lines);
+        } catch (DateAbsentException E)   {
+            Log.v(TAG, "Date absent exception!");
+        }
+//        Line eventTitle = lines.get(0);
+//        Line eventLocation = lines.get(lines.size() - 1);
 
-        if (dateLine != null)   {
+//        if (dateLine != null)   {
             final int MONTH = parseDate(dateLine, DateType.MONTH);
             final int DAY = parseDate(dateLine, DateType.DAY);
             final int YEAR = parseDate(dateLine, DateType.YEAR);
@@ -285,18 +290,18 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "MONTH: " + MONTH);
             Log.v(TAG, "DAY: " + DAY);
             Log.v(TAG, "YEAR: " + YEAR);
-            Log.v(TAG, "Title: " + eventTitle.getValue());
-            Log.v(TAG, "Location: " + eventLocation.getValue());
+//            Log.v(TAG, "Title: " + eventTitle.getValue());
+//            Log.v(TAG, "Location: " + eventLocation.getValue());
             Log.v(TAG, "Description: " + getEventDescription(lines));
 
             Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
-            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
+//            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
             Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
-        } else {
+//        } else {
             Log.v(TAG, " DATELINE IS NULL ");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
                     .show();
-        }
+//        }
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
@@ -333,14 +338,15 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public Line getDateLine(List<Line> lines)   {
+    public Line getDateLine(List<Line> lines) throws DateAbsentException {
         for(Line line: lines)   {
             if(hasMonth(line.getValue()))   {
                 Log.v(TAG, " DateLine: " + line.getValue());
                 return line;
             }
         }
-        return null;
+        throw new DateAbsentException();
+//        return null;
     }
 
     public int parseDate(final Line dateLine, int resourceType)   {
@@ -515,6 +521,12 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("description", eventDescription);
         intent.putExtra("eventLocation", location);
         startActivity(intent);
+    }
+}
+
+class DateAbsentException extends Exception {
+    DateAbsentException()   {
+        super();
     }
 }
 
