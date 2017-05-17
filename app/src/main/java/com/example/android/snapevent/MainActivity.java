@@ -298,6 +298,9 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Date absent exception!");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
                     .show();
+        } catch (IndexOutOfBoundsException E)   {
+            E.printStackTrace();
+            Log.v(TAG, "IndexOutOfBoundsException " + E);
         }
     }
 
