@@ -346,7 +346,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
         throw new DateAbsentException();
-//        return null;
     }
 
     public int parseDate(final Line dateLine, int resourceType)   {
