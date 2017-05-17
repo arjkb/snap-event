@@ -276,13 +276,9 @@ public class MainActivity extends AppCompatActivity
         Line dateLine = null;
         try {
             dateLine = getDateLine(lines);
-        } catch (DateAbsentException E)   {
-            Log.v(TAG, "Date absent exception!");
-        }
-//        Line eventTitle = lines.get(0);
-//        Line eventLocation = lines.get(lines.size() - 1);
+            Line eventTitle = lines.get(0);
+            Line eventLocation = lines.get(lines.size() - 1);
 
-//        if (dateLine != null)   {
             final int MONTH = parseDate(dateLine, DateType.MONTH);
             final int DAY = parseDate(dateLine, DateType.DAY);
             final int YEAR = parseDate(dateLine, DateType.YEAR);
@@ -295,13 +291,14 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, "Description: " + getEventDescription(lines));
 
             Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
-//            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
+            setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
             Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
-//        } else {
-            Log.v(TAG, " DATELINE IS NULL ");
+
+        } catch (DateAbsentException E)   {
+            Log.v(TAG, "Date absent exception!");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
                     .show();
-//        }
+        }
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
