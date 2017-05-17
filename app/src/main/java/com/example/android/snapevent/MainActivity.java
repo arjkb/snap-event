@@ -41,8 +41,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-                implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener,
-                            CreateEventDialogFragment.CreateEventDialogListener{
+                implements MyRecyclerViewAdapter.RecyclerViewButtonClickListener    {
     
     public RecyclerView myRecyclerView;
     static final int MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE = 100;
@@ -314,27 +313,6 @@ public class MainActivity extends AppCompatActivity
             Log.v(TAG, " TextBlock - " + i + ": " + textBlock.getValue());
         }
         return lines;
-    }
-
-    public void showCreateEventDialog(String dialogMessage) {
-        DialogFragment newFragment = new CreateEventDialogFragment(dialogMessage);
-        newFragment.show(getSupportFragmentManager(), "CEDF");
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        // method in CreateEventDialogListener
-        Log.v(TAG, " MA: Pressed positive dialog button");
-        Toast.makeText(getApplicationContext(),
-                        "Creating calendar event. No, not really.",
-                        Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        // method in CreateEventDialogListener
-        Log.v(TAG, " MA: Pressed negative dialog button");
-
     }
 
     public Line getDateLine(List<Line> lines) throws DateAbsentException {
