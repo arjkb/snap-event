@@ -422,7 +422,6 @@ public class MainActivity extends AppCompatActivity
         return description;
     }
 
-    static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
                            final int DAY,
                            final int MONTH,
