@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.snapevent">
+    package="com.github.arjunkrishnababu96.snapevent">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -17,19 +17,19 @@
         android:theme="@style/AppTheme">
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
+            android:authorities="com.github.arjunkrishnababu96.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
             <meta-data
-                android:name="com.example.android.snapevent.GlideConfiguration"
+                android:name="io.github.arjunkrishnababu96.snapevent.GlideConfiguration"
                 android:value="GlideModule" />
         </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.github.arjunkrishnababu96.snapevent.io.github.arjunkrishnababu96.snapevent.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -38,8 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutPageActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="com.github.arjunkrishnababu96.snapevent.io.github.arjunkrishnababu96.snapevent.AboutPageActivity"
+            android:parentActivityName="com.github.arjunkrishnababu96.snapevent.io.github.arjunkrishnababu96.snapevent.MainActivity">
             <meta-data android:name="android.suppose.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>

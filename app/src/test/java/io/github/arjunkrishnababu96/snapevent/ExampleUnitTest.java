@@ -1,4 +1,4 @@
-package com.example.android.snapevent;
+package io.github.arjunkrishnababu96.snapevent;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.android.snapevent;
+package io.github.arjunkrishnababu96.snapevent;
 
 import android.Manifest;
 import android.content.Intent;
