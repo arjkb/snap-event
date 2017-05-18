@@ -182,7 +182,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void galleryAddPic()    {
-        Log.v(TAG, " Inside galleryAddPic()");
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
         mediaScanIntent.setData(contentUri);
