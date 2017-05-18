@@ -1,7 +1,6 @@
 package com.example.android.snapevent;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -15,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     
     public RecyclerView myRecyclerView;
     static final int MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE = 100;
+    String TAG = "CAMERA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -107,20 +105,9 @@ public class MainActivity extends AppCompatActivity
                             "Permission denied by user!",
                             Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
         }
     }
-
-    private String[] getDummyText(int size) {
-        List<String> dummyString = new ArrayList<String>();
-        for (int i = 0; i < size; i++) {
-             dummyString.add(" Dummy string " + i);
-        }
-        return (String []) dummyString.toArray(new String[0]);
-    }
-
-    String TAG = "CAMERA";
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private void dispatchTakePictureIntent()    {
@@ -192,7 +179,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void galleryAddPic()    {
-        Log.v(TAG, " Inside galleryAddPic()");
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
         mediaScanIntent.setData(contentUri);
@@ -302,10 +288,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public int parseDate(final Line dateLine, int resourceType)   {
-        final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
-        final int EXPECTED_FIELD_COUNT = 3;
-
-        int day = 0;
+        final String[] dateLineStrings = dateLine.getValue().split(" ");
+        int day;
 
         switch (resourceType)   {
             case DateType.DAY:
@@ -319,8 +303,6 @@ public class MainActivity extends AppCompatActivity
                     } catch (NumberFormatException e)   {
                         // happens on failed attempts to convert non-numerical strings
                         // to integer
-
-                        continue;
                     }
                 }
                 break;
@@ -343,10 +325,10 @@ public class MainActivity extends AppCompatActivity
                     } catch (NumberFormatException e)   {
                         // happens on failed attempts to convert non-numerical strings
                         // to integer
-
-                        continue;
                     }
                 }
+
+                // if year couldn't be detected from dateline, return current year
                 return Calendar.getInstance().get(Calendar.YEAR);
         }
         return DateType.INVALID;
@@ -440,7 +422,6 @@ public class MainActivity extends AppCompatActivity
         return description;
     }
 
-    static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
                            final int DAY,
                            final int MONTH,
