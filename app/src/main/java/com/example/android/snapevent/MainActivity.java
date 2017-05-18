@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     
     public RecyclerView myRecyclerView;
     static final int MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE = 100;
+    String TAG = "CAMERA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +109,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
-    String TAG = "CAMERA";
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private void dispatchTakePictureIntent()    {
