@@ -332,6 +332,8 @@ public class MainActivity extends AppCompatActivity
                         // to integer
                     }
                 }
+
+                // if year couldn't be detected from dateline, return current year
                 return Calendar.getInstance().get(Calendar.YEAR);
         }
         return DateType.INVALID;
