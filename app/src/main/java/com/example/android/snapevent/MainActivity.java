@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity
                             "Permission denied by user!",
                             Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
         }
     }
