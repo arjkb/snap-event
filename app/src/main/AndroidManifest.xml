@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.arjunkrishnababu96.snapevent">
+    package="io.github.arjunkrishnababu96.snapevent">
 
     <uses-feature
         android:name="android.hardware.camera"
