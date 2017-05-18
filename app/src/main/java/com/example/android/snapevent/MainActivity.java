@@ -289,8 +289,6 @@ public class MainActivity extends AppCompatActivity
 
     public int parseDate(final Line dateLine, int resourceType)   {
         final String[] dateLineStrings = dateLine.getValue().split(" ");
-        final int EXPECTED_FIELD_COUNT = 3;
-
         int day = 0;
 
         switch (resourceType)   {
