@@ -308,8 +308,6 @@ public class MainActivity extends AppCompatActivity
                     } catch (NumberFormatException e)   {
                         // happens on failed attempts to convert non-numerical strings
                         // to integer
-
-                        continue;
                     }
                 }
                 break;
@@ -332,8 +330,6 @@ public class MainActivity extends AppCompatActivity
                     } catch (NumberFormatException e)   {
                         // happens on failed attempts to convert non-numerical strings
                         // to integer
-
-                        continue;
                     }
                 }
                 return Calendar.getInstance().get(Calendar.YEAR);
