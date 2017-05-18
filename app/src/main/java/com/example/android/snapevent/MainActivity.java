@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity
 
     public int parseDate(final Line dateLine, int resourceType)   {
         final String[] dateLineStrings = dateLine.getValue().split(" ");
-        int day = 0;
+        int day;
 
         switch (resourceType)   {
             case DateType.DAY:
