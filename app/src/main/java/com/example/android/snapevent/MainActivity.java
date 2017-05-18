@@ -110,14 +110,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private String[] getDummyText(int size) {
-        List<String> dummyString = new ArrayList<String>();
-        for (int i = 0; i < size; i++) {
-             dummyString.add(" Dummy string " + i);
-        }
-        return (String []) dummyString.toArray(new String[0]);
-    }
-
     String TAG = "CAMERA";
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
