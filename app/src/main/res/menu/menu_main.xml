@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.snapevent.MainActivity" >
+    tools:context="com.github.arjunkrishnababu96.snapevent.io.github.arjunkrishnababu96.snapevent.MainActivity" >
     <item android:id="@+id/action_about"
         android:title="@string/action_aboutpage_menu_title"
         android:orderInCategory="100"

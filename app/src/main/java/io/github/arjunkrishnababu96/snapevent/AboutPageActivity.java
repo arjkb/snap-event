@@ -1,9 +1,7 @@
-package com.example.android.snapevent;
+package io.github.arjunkrishnababu96.snapevent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.example.android.snapevent.R;
 
 public class AboutPageActivity extends AppCompatActivity {
 

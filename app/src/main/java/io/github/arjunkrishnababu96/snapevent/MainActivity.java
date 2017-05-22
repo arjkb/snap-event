@@ -1,7 +1,6 @@
-package com.example.android.snapevent;
+package io.github.arjunkrishnababu96.snapevent;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -15,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     
     public RecyclerView myRecyclerView;
     static final int MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE = 100;
+    String TAG = "CAMERA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        myRecyclerView.setAdapter(new MyRecyclerViewAdapter(getImageFileNames()));
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,17 +67,17 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (Build.VERSION.SDK_INT >= 23)    {
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)   {
-                        Log.v(TAG, " Permission check! Granted!");
                         dispatchTakePictureIntent();
                     } else  {
-                        Log.v(TAG, " Permission check! NOT Granted! Requesting...");
+                        // permission check not granted
+                        // request permission check
                         ActivityCompat.requestPermissions(MainActivity.this,
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                 MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE);
                     }
                 }
                 else    {
-                    // SDK < 23
+                    // SDK < 23. Don't worry about permissions
                     dispatchTakePictureIntent();
                 }
             }
@@ -99,26 +97,17 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode)    {
             case MY_PERMISSIONS_REQ_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)    {
-                    // permission was granted
+                    // permission granted
                     dispatchTakePictureIntent();
                 } else {
                     // permission denied.
-                    Toast.makeText(getApplicationContext(), "Permission denied by user!", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),
+                            "Permission denied by user!",
+                            Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
         }
     }
-
-    private String[] getDummyText(int size) {
-        List<String> dummyString = new ArrayList<String>();
-        for (int i = 0; i < size; i++) {
-             dummyString.add(" Dummy string " + i);
-        }
-        return (String []) dummyString.toArray(new String[0]);
-    }
-
-    String TAG = "CAMERA";
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private void dispatchTakePictureIntent()    {
@@ -131,17 +120,13 @@ public class MainActivity extends AppCompatActivity
 
             try {
                 photoFile = createImageFile();
-                Log.v(TAG, "Created image file! " + photoFile.toString());
             } catch (IOException E) {
                 // Error occurred while creating the file
                 final String TEXT="Error while creating image file! Aborting! ";
-                E.printStackTrace();
-                Log.v(TAG, TEXT);
                 Toast.makeText(getApplicationContext(), TEXT, Toast.LENGTH_SHORT).show();
-
             }
 
-            // continue only if the file was succesfully created
+            // continue only if the file was successfully created
             if(photoFile != null)   {
                 Uri photoURI = Uri.fromFile(photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -184,18 +169,16 @@ public class MainActivity extends AppCompatActivity
     String mCurrentPhotoPath;
     File storageDir;
     private File createImageFile() throws IOException   {
-        // Create an image file naem
+        // Create an image file name
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "SNAPEVENT_" + timestamp + "_";
         storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        Log.v(TAG, "storageDir: " + storageDir.toString());
         File image = File.createTempFile(imageFileName, ".png", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
     private void galleryAddPic()    {
-        Log.v(TAG, " Inside galleryAddPic()");
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
         mediaScanIntent.setData(contentUri);
@@ -205,25 +188,16 @@ public class MainActivity extends AppCompatActivity
     private List<File> getImageFileNames()  {
         List<File> inFiles = new ArrayList<>();
 
-        Log.v(TAG, " Inside getImageFileNames()!");
-        Log.v(TAG, " storageDir.listfiles() " + storageDir.listFiles());
-
         /*  Pics taken by app has the word "SNAPEVENT" in filename.
             I know this is shady.
          */
         if( storageDir.listFiles() != null) {
             for (File file : Arrays.asList(storageDir.listFiles())) {
-                Log.v(TAG, " Inside GFN() Looping!!" + file.toString());
                 if (file.isFile()) {
-                    Log.v(TAG, " Inside GFN() isFile()");
                     if (file.toString().contains("SNAPEVENT")) {
                         if (file.length() == 0) {
-                            Log.v(TAG, " getTotalSpace() " + file.length());
-                            if (file.delete()) {
-                                Log.v(TAG, " Deleted non-existent image file");
-                            }
+                            boolean delete_status = file.delete();
                         } else {
-                            Log.v(TAG, " Inside GFN() Adding File!!");
                             inFiles.add(file);
                         }
                     }
@@ -259,8 +233,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onButton1Click(int position) {
-        // method in RecyclerViewButtonClickListener
-        Log.v(TAG, " MA: Pressed button 1 at position " + position);
+        // Responds when button1 is clicked
+        // button1 has been temporarily disabled
     }
 
     @Override
@@ -269,9 +243,6 @@ public class MainActivity extends AppCompatActivity
 
         try {
             List<Line> lines = getLines(textBlockSparseArray);
-            for(Line line: lines)   {
-                Log.v(TAG, "Line: " + line.getValue());
-            }
 
             Line dateLine = getDateLine(lines);
             Line eventTitle = lines.get(0);
@@ -281,44 +252,35 @@ public class MainActivity extends AppCompatActivity
             final int DAY = parseDate(dateLine, DateType.DAY);
             final int YEAR = parseDate(dateLine, DateType.YEAR);
 
-            Log.v(TAG, "MONTH: " + MONTH);
-            Log.v(TAG, "DAY: " + DAY);
-            Log.v(TAG, "YEAR: " + YEAR);
-//            Log.v(TAG, "Title: " + eventTitle.getValue());
-//            Log.v(TAG, "Location: " + eventLocation.getValue());
-            Log.v(TAG, "Description: " + getEventDescription(lines));
-
             Toast.makeText(getApplicationContext(), "Creating calendar event!", Toast.LENGTH_SHORT).show();
             setUpEvent(eventTitle.getValue(), DAY, MONTH, YEAR, eventLocation.getValue(), getEventDescription(lines));
             Toast.makeText(getApplicationContext(), "Kindly verify all event details!", Toast.LENGTH_LONG).show();
 
         } catch (DateAbsentException E)   {
-            Log.v(TAG, "Date absent exception!");
             Toast.makeText(getApplicationContext(), "Could not detect date!", Toast.LENGTH_LONG)
                     .show();
         } catch (IndexOutOfBoundsException E)   {
             E.printStackTrace();
-            Log.v(TAG, "IndexOutOfBoundsException " + E);
         }
     }
 
     List<Line> getLines(SparseArray<TextBlock> tb)  {
         List<Line> lines = new ArrayList<>();
 
-        Log.v(TAG, " Inside getLines()");
-        Log.v(TAG, "textBlockSparseArray Size: " + tb.size());
         for (int i = 0; i < tb.size(); i++) {
             TextBlock textBlock = tb.valueAt(i);
             lines.addAll((Collection<? extends Line>) textBlock.getComponents());
-            Log.v(TAG, " TextBlock - " + i + ": " + textBlock.getValue());
         }
         return lines;
     }
 
     public Line getDateLine(List<Line> lines) throws DateAbsentException {
+        /*
+            The line that contains the month is assumed to contain the entire date.
+            Throw an exception if no lines contain the month; an event is worthless without the month
+         */
         for(Line line: lines)   {
             if(hasMonth(line.getValue()))   {
-                Log.v(TAG, " DateLine: " + line.getValue());
                 return line;
             }
         }
@@ -326,28 +288,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     public int parseDate(final Line dateLine, int resourceType)   {
-        final String[] dateLineStrings = dateLine.getValue().toString().split(" ");
-        final int EXPECTED_FIELD_COUNT = 3;
-
-        int day = 0;
-
-//        if(dateLineStrings.length != EXPECTED_FIELD_COUNT) {
-//            Log.w(TAG, " Length of dateLineStrings: " + dateLineStrings.length);
-//        }
+        final String[] dateLineStrings = dateLine.getValue().split(" ");
+        int day;
 
         switch (resourceType)   {
             case DateType.DAY:
                 for(String s: dateLineStrings)  {
                     s = s.replaceAll("([.,;:])", "");
-
                     try {
                         day = Integer.parseInt(s);
                         if (day >= 1 && day <= 31)  {
                             return day;
                         }
                     } catch (NumberFormatException e)   {
-                        Log.w(TAG, " NumberFormatException for " + s + ": " + e.toString());
-                        continue;
+                        // happens on failed attempts to convert non-numerical strings
+                        // to integer
                     }
                 }
                 break;
@@ -363,18 +318,18 @@ public class MainActivity extends AppCompatActivity
             case DateType.YEAR:
                 for(String s: dateLineStrings)  {
                     s = s.replaceAll("([.,;:])", "");
-
                     try {
                         if (s.matches("^[0-9]{4}$"))  {
                             return Integer.parseInt(s);
                         }
                     } catch (NumberFormatException e)   {
-                        Log.w(TAG, " YEAR NumberFormatException for " + s + ": " + e.toString());
-                        continue;
+                        // happens on failed attempts to convert non-numerical strings
+                        // to integer
                     }
                 }
+
+                // if year couldn't be detected from dateline, return current year
                 return Calendar.getInstance().get(Calendar.YEAR);
-//                break;
         }
         return DateType.INVALID;
     }
@@ -467,17 +422,12 @@ public class MainActivity extends AppCompatActivity
         return description;
     }
 
-    static final int REQUEST_CREATE_CAL_EVENT = 2;
     public void setUpEvent(String title,
                            final int DAY,
                            final int MONTH,
                            final int YEAR,
                            final String location,
                            String eventDescription) {
-
-        Log.v(TAG, " setUpEvent: " + DAY + "\n");
-        Log.v(TAG, " setUpEvent: " + MONTH + "\n");
-        Log.v(TAG, " setUpEvent: " + YEAR + "\n");
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(YEAR, MONTH, DAY);
