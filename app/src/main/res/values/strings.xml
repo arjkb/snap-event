@@ -1,4 +1,19 @@
 <resources>
-    <string name="app_name">SnapEvent</string>
+    <string name="app_name">Snap Event</string>
     <string name="action_settings">Settings</string>
+    <string name="action_aboutpage_menu_title">Credits</string>
+    <string name="about_page_title">Credits</string>
+    <string name="cardview_button_right">Create Calendar Event</string>
+    <string name="dialog_button_negative">Cancel</string>
+    <string name="dialog_button_positive">Create Event</string>
+    <string name="dialog_title">Create Event?</string>
+
+    <string name="dev1_name">Arjun Krishna Babu</string>
+    <string name="dev2_name">Alexander Kaberlein</string>
+
+    <string name="dev1_email">arjunkrishnababu96@unm.edu</string>
+    <string name="dev2_email">akaberle@unm.edu</string>
+
+    <string name="dev1_github">github.com/arjunkrishnababu96</string>
+    <string name="dev2_github">github.com/akaberlein</string>
 </resources>
